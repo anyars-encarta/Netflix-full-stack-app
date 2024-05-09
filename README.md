@@ -4,12 +4,12 @@
 
  <!-- LOGO -->
 
-  <img src="./public/images/main.png" alt="logo" width="160"  height="auto" />
+  <img src="./client/public/images/main.png" alt="logo" width="160"  height="auto" />
   <br/>
 
 <!-- MAIN HEADING -->
 
-  <h3><b>Netflix UI Design</b></h3>
+  <h3><b>Netflix App</b></h3>
 
 </div>
 
@@ -37,9 +37,9 @@
 - [📝 License](#license)
 
 <!-- INTRO -->
-# 📖 Netflix UI Design<a name="about-project"></a>
+# 📖 Netflix App<a name="about-project"></a>
 
-> Netflix UI Design is a design clone of the Netflix website that shows varities of movies users could pick and watch.
+> Netflix App is a full-stack clone of the Netflix website that shows varities of movies users could pick and watch.
 
 ## 🛠 Built With <a name="built-with"></a>
 1. React
