@@ -1,0 +1,105 @@
+.register {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 1) 100%),
+        url('https://images2.alphacoders.com/445/445151.jpg');
+    background-size: cover;
+    position: relative;
+
+    .top {
+
+        .wrapper {
+            padding: 20px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: linear-gradient(to top,
+                    rgba(0, 0, 0, 0) 0%,
+                    rgba(0, 0, 0, 1) 100%);
+
+            .logo {
+                height: 40px;
+            }
+
+            .loginButton {
+                background-color: red;
+                border: none;
+                color: #fff;
+                border-radius: 5px;
+                padding: 5px 15px;
+                font-size: 16px;
+                font-weight: 500;
+                cursor: pointer;
+                z-index: 10;
+
+                .link {
+                    text-decoration: none;
+                    color: inherit;
+                }
+            }
+        }
+
+    }
+
+    .container {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        color: #fff;
+
+        h1 {
+            font-size: 50px;
+        }
+
+        h2 {
+            margin: 20px;
+        }
+
+        p {
+            font-size: 20px;
+        }
+
+        .input  {
+            width: 50%;
+            background-color: #fff; 
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+            height: 50px;
+            border-radius: 5px;
+
+            input {
+                flex: 9;
+                height: 100%;
+                border: none;
+                padding: 0 10px;
+                outline: none;
+            }
+
+            .registerButton {
+                flex: 3;
+                height: 100%;
+                background-color: red;
+                border: none;
+                color: #fff;
+                font-size: 22px;
+                cursor: pointer;
+
+                .link {
+                    text-decoration: none;
+                    color: inherit;
+                }
+            }
+        }
+    }
+}
