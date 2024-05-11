@@ -6,11 +6,9 @@ const authRoute = require("./routes/auth.js");
 
 dotenv.config();
 
-mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    // useCreateIndex: true,
-}).then(
+mongoose.connect(
+    process.env.MONGO_URL
+).then(
     () => console.log('DB Connection successful')
 ).catch((e) => console.log(e));
 
@@ -21,9 +19,3 @@ app.use("/api/auth", authRoute);
 app.listen(8800, () => {
     console.log('You are re-building Netflix and your server is running!')
 });
-
-
-
-
-// app.use(bodyParser.json());
-
