@@ -30,7 +30,7 @@ router.put("/:id", verify, async (req, res) => {
 router.delete("/:id", verify, async (req, res) => {
     if (req.user.id === req.params.id || req.user.isAdmin) {
         try {
-            const updatedUser = await User.findByIdAndDelete(req.params.id);
+            await User.findByIdAndDelete(req.params.id);
             res.status(200).json("User has been deleted...")
         } catch (e) {
             res.status(500).json(e);
@@ -39,6 +39,7 @@ router.delete("/:id", verify, async (req, res) => {
         res.status(403).json('You can delete only your account!');
     }
 });
+
 // GET SINGLE USER
 // GET ALL USERS
 // GET USER STATS
