@@ -58,4 +58,15 @@ router.delete("/:id", verify, async (req, res) => {
     }
 });
 
+// GET A MOVIE
+router.get("/:id", verify, async (req, res) => {
+        try {
+            const movie = await Movie.findById(req.params.id);
+
+            res.status(200).json(movie);
+        } catch (e) {
+            res.status(500).json(e)
+        }
+});
+
 module.exports = router;
