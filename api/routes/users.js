@@ -41,7 +41,31 @@ router.delete("/:id", verify, async (req, res) => {
 });
 
 // GET SINGLE USER
+router.get("/find/:id", async (req, res) => {
+        try {
+            const user = await User.findById(req.params.id);
+            const { password, ...info } = user._doc;
+            res.status(200).json(info);
+        } catch (e) {
+            res.status(500).json(e);
+        }
+});
+
 // GET ALL USERS
+router.get("/", verify, async (req, res) => {
+    const query = req.query.new;
+    if (req.user.isAdmin) {
+        try {
+           const users =  query ? await User.find().sort({_id: -1}).limit(10) : await User.find();
+            res.status(200).json(users);
+        } catch (e) {
+            res.status(500).json(e);
+        }
+    } else {
+        res.status(403).json('You are not allowed to view all users');
+    }
+});
+
 // GET USER STATS
 
 module.exports = router;
