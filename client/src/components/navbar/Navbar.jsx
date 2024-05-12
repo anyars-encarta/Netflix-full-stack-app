@@ -30,10 +30,22 @@ const Navbar = () => {
                             Homepage
                         </Link>
                     </span>
-                    <span>Series</span>
-                    <span>Movies</span>
+                    <span>
+                        <Link to="/series" className='link'>
+                            Series
+                        </Link>
+                    </span>
+                    <span>
+                        <Link to="/movies" className='link'>
+                            Movies
+                        </Link>
+                    </span>
                     <span>New and Popular</span>
-                    <span>My List</span>
+                    <span>
+                        <Link to="/lists" className='link'>
+                            My List
+                        </Link>
+                    </span>
                 </div>
 
                 <div className="right">
@@ -55,7 +67,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
