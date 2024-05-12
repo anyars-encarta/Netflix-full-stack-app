@@ -7,16 +7,24 @@ import Watch from './pages/watch/Watch';
 import List from "./components/list/List";
 
 const App = () => {
+  const user = false;
+
   return (
     <Router>
       <div className="app">
         <Routes>
-          <Route exact path='/' element={<Home />} />
-          <Route path='/movies' element={<Home type='movies'/>} />
-          <Route path='/series' element={<Home type='series'/>} />
-          {/* <Route path='/login' element={<Login />} /> */}
-          <Route path='/watch' element={<Watch />} />
-          <Route path='/lists' element={<List />} />
+          <Route exact path='/' element={user ? <Home /> : <Register />} />
+          <Route path='/register' element={!user ? <Register /> : <Home />} />
+          <Route path='/login' element={!user ? <Login /> : <Register />} />
+
+          { user &&
+          <>
+            <Route path='/movies' element={<Home type='movies' />} />
+            <Route path='/series' element={<Home type='series' />} />
+            <Route path='/watch' element={<Watch />} />
+            <Route path='/lists' element={<List />} />
+          </>
+          }
         </Routes>
       </div>
     </Router>
