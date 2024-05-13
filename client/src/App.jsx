@@ -7,7 +7,7 @@ import Watch from './pages/watch/Watch';
 import List from "./components/list/List";
 
 const App = () => {
-  const user = false;
+  const user = true;
 
   return (
     <Router>
