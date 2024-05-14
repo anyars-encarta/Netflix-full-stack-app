@@ -25,7 +25,7 @@ const List = ({ list }) => {
   return (
     <div className='list'>
       <span className="listTitle">{list.title}</span>
-      <div className="wrapper">
+      <div className="wrapper" >
         <ArrowBackIosOutlined
           className='sliderArrow left'
           onClick={() => handleClick('left')}
