@@ -1,3 +1,4 @@
+// ListItem.jsx
 import {
   Add,
   PlayArrow,
@@ -22,7 +23,6 @@ const ListItem = ({ index, item }) => {
       });
 
       setMovie(res.data);
-      console.log("Movie set to State:", movie);
     } catch (e) {
       console.log(e)
     }
@@ -33,7 +33,7 @@ const ListItem = ({ index, item }) => {
   }, [item]);
 
   return (
-    <Link to={{ pathname: "/watch", movie: movie }}>
+    <Link to={`/watch?movieId=${movie._id}`}>
       <div
         className='listItem'
         style={{ left: hovered && index * 225 - 50 + index * 2.5 }}
@@ -73,9 +73,9 @@ const ListItem = ({ index, item }) => {
             </div>
           </>
         )}
-      </div>
-    </Link >
+      </div >
+    </Link>
   );
 }
 
-export default ListItem
+export default ListItem;
