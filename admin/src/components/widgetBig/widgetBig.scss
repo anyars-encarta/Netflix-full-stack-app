@@ -1,0 +1,69 @@
+.widgetBig {
+    flex: 2;
+    padding: 20px;
+
+    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+
+    .widgetBigTitle {
+        font-size: 22px;
+        font-weight: 600;
+    }
+
+    .widgetBigTable {
+        width: 100%;
+        border-spacing: 20px;
+
+        .widgetBigTr {
+
+            .widgetBigTh {
+                text-align: left;
+            }
+
+            .widgetBigUser {
+                display: flex;
+                align-items: center;
+                font-weight: 600;
+
+                .widgetBigImage {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    margin-right: 10px;
+                }
+
+                .widgetBigName {}
+            }
+
+            .widgetBigDate, 
+            .widgetBigAmount {
+                font-weight: 300;
+            }
+
+            .widgetBigStatus {
+
+                .widgetBigButton {
+                    padding: 5px 7px;
+                    border: none;
+                    border-radius: 10px;
+
+                    &.Approved {
+                        background-color: #e5faf2;
+                        color: #3bb077;
+                    }
+
+                    &.Pending {
+                        background-color: #ebf1fe;
+                        color: #2a7ade;
+                    }
+
+                    &.Declined {
+                        background-color: #fff0f1;
+                        color: #d95087;
+                    }
+                }
+            }
+        }
+    }
+}
