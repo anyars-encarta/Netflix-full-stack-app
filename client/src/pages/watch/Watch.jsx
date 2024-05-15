@@ -1,8 +1,34 @@
+// Watch.jsx
 import { ArrowBackOutlined } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './watch.scss';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const Watch = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const movieId = searchParams.get('movieId');
+  const [movie, setMovie] = useState({});
+
+  const getMovie = async () => {
+    try {
+      const res = await axios.get("/movies/find/" + movieId, {
+        headers: {
+          token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2Y1MTNhMTAxMmFhY2IwODY4MDM0NSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcxNTUzMTY1OCwiZXhwIjoxNzE1OTYzNjU4fQ.1lJHxhyfroWFfnTQ4-OKMFGXjSOybWQMDySMmjMLtnY"
+        },
+      });
+
+      setMovie(res.data);
+    } catch (e) {
+      console.log(e)
+    }
+  };
+
+  useEffect(() => {
+    getMovie();
+  }, [movieId]);
+
   return (
     <div className='watch'>
       <Link to="/" className='link'>
@@ -12,12 +38,12 @@ const Watch = () => {
         </div>
       </Link>
 
-      <video className="video" autoPlay progress controls>
-        <source src="https://vod-progressive.akamaized.net/exp=1624452918~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F2400%2F14%2F362003850%2F1486625955.mp4~hmac=d6f829e7bb83f1ee6a28047d00aa2c1083c8fe5036c8084a4adf1c3903085856/vimeo-prod-skyfire-std-us/01/2400/14/362003850/1486625955.mp4" type="video/mp4" />
+      <video className="video" autoPlay progress="true" controls>
+        <source src={movie && movie.video} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>
   )
 }
 
-export default Watch
+export default Watch;

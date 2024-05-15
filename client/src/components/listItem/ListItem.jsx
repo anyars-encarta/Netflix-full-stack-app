@@ -1,3 +1,4 @@
+// ListItem.jsx
 import {
   Add,
   PlayArrow,
@@ -6,17 +7,12 @@ import {
 } from '@mui/icons-material';
 import './listItem.scss';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const ListItem = ({ index, item }) => {
   const [hovered, setHovered] = useState(false);
   const [movie, setMovie] = useState({});
-  const navigate = useNavigate();
-
-  const handleWatch = () => {
-    navigate('/watch');
-  };
 
   const getMovie = async () => {
     try {
@@ -34,51 +30,52 @@ const ListItem = ({ index, item }) => {
 
   useEffect(() => {
     getMovie();
-  }, [item])
+  }, [item]);
+
   return (
-    <div
-      className='listItem'
-      style={{ left: hovered && index * 225 - 50 + index * 2.5 }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onClick={handleWatch}
-    >
-      <img
-        src={movie.img}
-        alt=""
-      />
+    <Link to={`/watch?movieId=${movie._id}`}>
+      <div
+        className='listItem'
+        style={{ left: hovered && index * 225 - 50 + index * 2.5 }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <img
+          src={movie.img}
+          alt=""
+        />
 
-      {hovered && (
-        <>
-          {/* <video src={trailer} autoPlay={true} loop /> */}
-          <video controls autoPlay loop>
-            <source src={movie.trailer} type="video/mp4" />
-          </video>
+        {hovered && (
+          <>
+            <video controls autoPlay loop>
+              <source src={movie.trailer} type="video/mp4" />
+            </video>
 
-          <div className="itemInfo">
-            <div className="icons">
-              <PlayArrow className='icon' />
-              <Add className='icon' />
-              <ThumbUpOffAltOutlined className='icon' />
-              <ThumbDownOutlined className='icon' />
+            <div className="itemInfo">
+              <div className="icons">
+                <PlayArrow className='icon' />
+                <Add className='icon' />
+                <ThumbUpOffAltOutlined className='icon' />
+                <ThumbDownOutlined className='icon' />
+              </div>
+
+              <div className="itemInfoTop">
+                <span>{movie.duration}</span>
+                <span className='limit'>+{movie.limit}</span>
+                <span>{movie.year}</span>
+              </div>
+
+              <div className="desc">
+                {movie.desc}
+              </div>
+
+              <div className="genre">{movie.genre}</div>
             </div>
-
-            <div className="itemInfoTop">
-              <span>{movie.duration}</span>
-              <span className='limit'>+{movie.limit}</span>
-              <span>{movie.year}</span>
-            </div>
-
-            <div className="desc">
-              {movie.desc}
-            </div>
-
-            <div className="genre">{movie.genre}</div>
-          </div>
-        </>
-      )}
-    </div>
+          </>
+        )}
+      </div >
+    </Link>
   );
 }
 
-export default ListItem
+export default ListItem;
