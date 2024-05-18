@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import './productList.scss';
+import './movieList.scss';
 import { DataGrid } from '@mui/x-data-grid';
 import { productRows } from '../../constants/userTable';
 import { DeleteOutline } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
-const ProductList = () => {
+const MovieList = () => {
   const [data, setData] = useState(productRows);
 
   const handleDelete = (id) => {
@@ -60,4 +60,4 @@ const ProductList = () => {
   )
 }
 
-export default ProductList
+export default MovieList;

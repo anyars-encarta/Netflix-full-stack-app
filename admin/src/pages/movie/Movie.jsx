@@ -1,11 +1,11 @@
 import React from 'react';
-import './product.scss';
+import './movie.scss';
 import { Link } from 'react-router-dom';
 import Chart from '../../components/chart/Chart';
 import { productData } from '../../constants/chartData';
 import { Publish } from '@mui/icons-material';
 
-const Product = () => {
+const Movie = () => {
     const title = 'Sales Performance';
 
     return (
@@ -85,4 +85,4 @@ const Product = () => {
     )
 }
 
-export default Product
+export default Movie;
