@@ -31,7 +31,7 @@ const MovieList = () => {
         field: 'action', headerName: 'Action', width: 150, renderCell: (params) => {
             return (
                 <>
-                    <Link to={"/product/" + params.row.id} className='link'>
+                    <Link to={"/movie/" + params.row.id} className='link'>
                         <button className="productListEdit">Edit</button>
                     </Link>
 
