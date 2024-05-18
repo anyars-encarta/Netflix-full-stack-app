@@ -42,10 +42,9 @@ const Home = () => {
         return a._id - b._id;
       });
 
-      statsList.map(item => {
-        setUserStats(prev => [...prev, { name: MONTHS[item._id - 1], "New User": item.total }])
-      });
-
+      statsList.map((item) => 
+        setUserStats((prev) => [...prev, { name: MONTHS[item._id - 1], "New User": item.total },])
+      );
     } catch (e) {
       console.log(e)
     }
