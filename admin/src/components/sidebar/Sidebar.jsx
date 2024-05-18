@@ -71,9 +71,9 @@ const Sidebar = () => {
                             className={activeIndex === 4 ? "sidebarListItem active" : "sidebarListItem"}
                             onClick={() => handleSelect(4)}
                         >
-                            <Link to="/products" className='link'>
+                            <Link to="/movies" className='link'>
                                 <Storefront className='sidebarIcon' />
-                                Products
+                                Movies
                             </Link>
                         </li>
                         <li

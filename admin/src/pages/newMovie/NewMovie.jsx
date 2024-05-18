@@ -1,7 +1,7 @@
 import React from 'react';
-import './newProduct.scss';
+import './newMovie.scss';
 
-const NewProduct = () => {
+const NewMovie = () => {
     return (
         <div className='newProduct'>
             <h1 className="addProductTitle">New Product</h1>
@@ -36,4 +36,4 @@ const NewProduct = () => {
     )
 }
 
-export default NewProduct
+export default NewMovie
