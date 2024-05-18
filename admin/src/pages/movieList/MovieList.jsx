@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './movieList.scss';
 import { DataGrid } from '@mui/x-data-grid';
-import { productRows } from '../../constants/userTable';
+// import { productRows } from '../../constants/userTable';
 import { DeleteOutline } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const MovieList = () => {
-  const [data, setData] = useState(productRows);
+  const [data, setData] = useState([]);
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id))
+    setData(data.filter((item) => item._id !== id))
  };
  
   const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
+    { field: '_id', headerName: 'ID', width: 70 },
     {
-        field: 'name', headerName: 'Product Name', width: 200, renderCell: (params) => {
+        field: 'name', headerName: 'Movie Title', width: 200, renderCell: (params) => {
             return (
                 <div className='productListProduct'>
                     <img src={params.row.img} alt='' className='productListImage' />
@@ -41,6 +42,25 @@ const MovieList = () => {
         }
     },
 ];
+
+const getMovieList = async () => {
+    try {
+        const res = await axios.get("/movies", {
+            headers: {
+                token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2Y1MTNhMTAxMmFhY2IwODY4MDM0NSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcxNjAyNDYwMCwiZXhwIjoxNzE2NDU2NjAwfQ.rBeS1HDXljBTqgO6lSxIOxi_kRDMMY-zmpSXzGOGu6Y"
+            },
+        });
+
+        console.log("Movies are ready: ", res.data)
+        setData(res.data);
+    } catch (e) {
+        console.log(e)
+    }
+};
+
+useEffect(() => {
+    getMovieList();
+}, []);
 
   return (
     <div className='productList'>

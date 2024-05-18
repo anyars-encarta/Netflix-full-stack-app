@@ -16,7 +16,7 @@
                 font-size: 13px;
                 color: rgb(187, 186, 186);
             }
-            
+
             .sidebarList {
                 list-style: none;
                 padding: 5px;
@@ -28,15 +28,18 @@
                     align-items: center;
                     border-radius: 10px;
 
-                    &.active, &:hover {
+                    &.active,
+                    &:hover {
                         background-color: rgb(240, 240, 255);
                     }
 
                     .link {
+                        display: flex;
+                        align-items: center;
                         text-decoration: none;
                         color: inherit;
                     }
-                    
+
                     .sidebarIcon {
                         margin-right: 5px;
                         font-size: 20px !important;

@@ -13,6 +13,8 @@ import {
     ChatBubbleOutline,
     WorkOutline,
     Report,
+    PlayArrow,
+    PlayCircleOutline,
 } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
@@ -72,7 +74,7 @@ const Sidebar = () => {
                             onClick={() => handleSelect(4)}
                         >
                             <Link to="/movies" className='link'>
-                                <Storefront className='sidebarIcon' />
+                                <PlayCircleOutline className='sidebarIcon' />
                                 Movies
                             </Link>
                         </li>
