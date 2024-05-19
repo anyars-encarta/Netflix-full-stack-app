@@ -10,10 +10,12 @@ import MovieList from "./pages/movieList/MovieList";
 import Movie from "./pages/movie/Movie";
 import NewMovie from "./pages/newMovie/NewMovie";
 import Login from './pages/login/Login';
+import { useContext } from "react";
+import { AuthContext } from "./context/userContext/AuthContext";
 
 const App = () => {
-  const user = false;
-
+  const { user } = useContext(AuthContext);
+//  const user = false
   return (
     <Router>
     {user ? (
