@@ -5,7 +5,7 @@ import { productRows } from '../../constants/userTable';
 import { DeleteOutline } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { MovieContext } from '../../context/movieContext/MovieContext';
-import { getMovies } from '../../context/movieContext/apiCalls';
+import { deleteMovie, getMovies } from '../../context/movieContext/apiCalls';
 
 const MovieList = () => {
     const { movies, dispatch } = useContext(MovieContext);
@@ -17,6 +17,7 @@ const MovieList = () => {
 
     const handleDelete = (id) => {
         // setData(data.filter((item) => item._id !== id))
+        deleteMovie(id, dispatch)
     };
 
     const columns = [
@@ -50,7 +51,7 @@ const MovieList = () => {
         },
     ];
 
-    console.log(movies)
+    // console.log(movies)
     return (
         <div className='productList'>
             <DataGrid
