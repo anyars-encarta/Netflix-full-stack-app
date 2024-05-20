@@ -8,8 +8,8 @@ import { MovieContext } from '../../context/movieContext/MovieContext';
 import { getMovies } from '../../context/movieContext/apiCalls';
 
 const MovieList = () => {
-    // const [data, setData] = useState(productRows);
     const { movies, dispatch } = useContext(MovieContext);
+    // const [data, setData] = useState(movies);
 
     useEffect(() => {
         getMovies(dispatch);
@@ -20,39 +20,41 @@ const MovieList = () => {
     };
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 70 },
+        { field: '_id', headerName: 'ID', width: 90 },
         {
-            field: 'name', headerName: 'Movie Title', width: 200, renderCell: (params) => {
+            field: 'movie', headerName: 'Movie', width: 200, renderCell: (params) => {
                 return (
                     <div className='productListProduct'>
                         <img src={params.row.img} alt='' className='productListImage' />
-                        {params.row.name}
+                        {params.row.title}
                     </div>
                 )
             }
         },
-        { field: 'stock', headerName: 'Stock', width: 200 },
-        { field: 'status', headerName: 'Status', width: 120 },
-        { field: 'price', headerName: 'Unit Price', width: 160 },
+        { field: 'genre', headerName: 'Genre', width: 120 },
+        { field: 'year', headerName: 'Year', width: 120 },
+        { field: 'limit', headerName: 'Limit', width: 120 },
+        { field: 'isSeries', headerName: 'isSeries', width: 120 },
         {
             field: 'action', headerName: 'Action', width: 150, renderCell: (params) => {
                 return (
                     <>
-                        <Link to={"/movie/" + params.row.id} className='link'>
+                        <Link to={"/movie/" + params.row._id} className='link'>
                             <button className="productListEdit">Edit</button>
                         </Link>
 
-                        <DeleteOutline className="productListDelete" onClick={() => handleDelete(params.row.id)} />
+                        <DeleteOutline className="productListDelete" onClick={() => handleDelete(params.row._id)} />
                     </>
                 )
             }
         },
     ];
 
+    console.log(movies)
     return (
         <div className='productList'>
-            {/* <DataGrid
-                rows={data}
+            <DataGrid
+                rows={movies}
                 columns={columns}
                 disableRowSelectionOnClick
                 initialState={{
@@ -62,7 +64,8 @@ const MovieList = () => {
                 }}
                 pageSizeOptions={[5, 10]}
                 checkboxSelection
-            /> */}
+                getRowId={(r) => r._id}
+            />
         </div>
     )
 }
