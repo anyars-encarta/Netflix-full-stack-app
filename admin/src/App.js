@@ -9,25 +9,36 @@ import NewUser from "./pages/newUser/NewUser";
 import MovieList from "./pages/movieList/MovieList";
 import Movie from "./pages/movie/Movie";
 import NewMovie from "./pages/newMovie/NewMovie";
+import Login from './pages/login/Login';
+import { useContext } from "react";
+import { AuthContext } from "./context/userContext/AuthContext";
 
 const App = () => {
+  const { user } = useContext(AuthContext);
+//  const user = false
   return (
     <Router>
-      <Topbar />
-
-      <div className='container'>
-        <Sidebar />
-
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/users' element={<UserList />} />
-          <Route path='/user/:userId' element={<User />} />
-          <Route path='/newUser' element={<NewUser />} />
-          <Route path='/movies' element={<MovieList />} />
-          <Route path='/movie/:movieId' element={<Movie />} />
-          <Route path='/newMovie' element={<NewMovie />} />
-        </Routes>
-      </div>
+    {user ? (
+      <>
+        <Topbar />
+  
+        <div className='container'>
+          <Sidebar />
+  
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/users' element={<UserList />} />
+            <Route path='/user/:userId' element={<User />} />
+            <Route path='/newUser' element={<NewUser />} />
+            <Route path='/movies' element={<MovieList />} />
+            <Route path='/movie/:movieId' element={<Movie />} />
+            <Route path='/newMovie' element={<NewMovie />} />
+          </Routes>
+        </div>
+      </>
+    ) : (
+      <Login />
+    )}
     </Router>
   );
 }
