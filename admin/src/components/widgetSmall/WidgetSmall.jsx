@@ -13,7 +13,7 @@ const WidgetSmall = () => {
                     token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2Y1MTNhMTAxMmFhY2IwODY4MDM0NSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcxNjAyNDYwMCwiZXhwIjoxNzE2NDU2NjAwfQ.rBeS1HDXljBTqgO6lSxIOxi_kRDMMY-zmpSXzGOGu6Y"
                 },
             });
-            console.log("Fetched Users: ", res.data);
+
             setNewUsers(res.data);
         } catch (e) {
             console.log(e)
@@ -24,7 +24,6 @@ const WidgetSmall = () => {
         getNewUsers();
     }, []);
 
-console.log("Objected Users: ", newUsers);
     return (
         <div className='widgetSmall'>
             <span className="widgetSmallTitle">New Joined Members</span>

@@ -1,17 +1,52 @@
-import React from 'react';
 import './movie.scss';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import Chart from '../../components/chart/Chart';
 import { productData } from '../../constants/chartData';
 import { Publish } from '@mui/icons-material';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const Movie = () => {
-    const title = 'Sales Performance';
+    const title = 'Downloads Performance';
+    const location = useLocation();
+    const pathname = location.pathname;
+    const movieId = pathname.split('/').pop();
+    const [movie, setMovie] = useState(location.state?.movie || null);
+
+    console.log("Movie ID: ", movieId); // The movie ID is conrrectly consoled to the log here
+
+    const fetchMovieById = async (movieId) => {
+        try {
+            const res = await axios.get(`http://localhost:8800/api/movies/find/${movieId}`, {
+            headers: {
+                token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+            }
+        });
+        console.log("The data : ", res.data)
+        return res.data;
+        
+        } catch (e) {
+            console.log(e);
+        } 
+    }
+
+    useEffect(() => {
+        if (!movie) {
+            // Fetch movie details if not available from location.state
+            fetchMovieById(movieId).then(fetchedMovie => setMovie(fetchedMovie));
+        }
+    }, [movieId, movie]);
+
+    if (!movie) {
+        return <div>Loading...</div>;
+    }
+    
+    console.log("This is the fetched movie: ", movie);
 
     return (
         <div className='product'>
             <div className="productTitleContainer">
-                <h1 className="productTitle">Product</h1>
+                <h1 className="productTitle">Movie</h1>
 
                 <Link to='/newproduct'>
                     <button className="productAddButton">Create</button>
@@ -24,8 +59,8 @@ const Movie = () => {
                 </div>
                 <div className="productTopRight">
                     <div className="productInfoTop">
-                        <img src="/images/dell_desktop.jpg" alt="" className="productInfoImage" />
-                        <span className="productName">HP Laptops</span>
+                        <img src='{movie.img} ' alt="" className="productInfoImage" />
+                        <span className="productName">''</span>
                     </div>
                     <div className="productInfoBottom">
                         <div className="productInfoItem">

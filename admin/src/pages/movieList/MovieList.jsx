@@ -9,14 +9,12 @@ import { deleteMovie, getMovies } from '../../context/movieContext/apiCalls';
 
 const MovieList = () => {
     const { movies, dispatch } = useContext(MovieContext);
-    // const [data, setData] = useState(movies);
 
     useEffect(() => {
         getMovies(dispatch);
     }, [dispatch]);
 
     const handleDelete = (id) => {
-        // setData(data.filter((item) => item._id !== id))
         deleteMovie(id, dispatch)
     };
 
@@ -40,7 +38,7 @@ const MovieList = () => {
             field: 'action', headerName: 'Action', width: 150, renderCell: (params) => {
                 return (
                     <>
-                        <Link to={"/movie/" + params.row._id} className='link'>
+                        <Link to={{ pathname: "/movie/" + params.row._id, state: { movie: params.row } }} className='link'>
                             <button className="productListEdit">Edit</button>
                         </Link>
 
@@ -51,7 +49,6 @@ const MovieList = () => {
         },
     ];
 
-    // console.log(movies)
     return (
         <div className='productList'>
             <DataGrid

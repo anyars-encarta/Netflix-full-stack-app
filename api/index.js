@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
@@ -16,12 +17,14 @@ mongoose.connect(
 ).catch((e) => console.log(e));
 
 app.use(express.json());
+app.use(cors());
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/movies", movieRoute);
 app.use("/api/lists", listRoute);
 
-app.listen(8800, () => {
-    console.log('You are re-building Netflix and your server is running!')
+const PORT = 8800;
+app.listen(PORT, () => {
+    console.log(`You are re-building Netflix and your server is running on ${PORT}!`)
 });
