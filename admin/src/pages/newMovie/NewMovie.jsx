@@ -8,10 +8,11 @@ const NewMovie = () => {
     const [imgSm, setImgSm] = useState(null);
     const [trailer, setTrailer] = useState(null);
     const [video, setVideo] = useState(null);
+    const [uploaded, setUploaded] = useState(0);
 
     const handleChange = (e) => {
         const value = e.target.value
-        setMovie({...movie, [e.target.name]: value});
+        setMovie({ ...movie, [e.target.name]: value });
     };
 
     console.log("On change:", movie);
@@ -23,12 +24,12 @@ const NewMovie = () => {
             <form className="addProductForm">
                 <div className="addProductItem">
                     <label for="img">Image</label>
-                    <input id='img' type="file" name="img" onChange={(e) => setImg(e.target.files[0])}/>
+                    <input id='img' type="file" name="img" onChange={(e) => setImg(e.target.files[0])} />
                 </div>
 
                 <div className="addProductItem">
                     <label for="imgTitle">Title Image</label>
-                    <input id='imgTitle' type="file" name="imgTitle" onChange={(e) => setImgTitle(e.target.files[0])}/>
+                    <input id='imgTitle' type="file" name="imgTitle" onChange={(e) => setImgTitle(e.target.files[0])} />
                 </div>
 
                 <div className="addProductItem">
@@ -76,7 +77,7 @@ const NewMovie = () => {
 
                 <div className="addProductItem">
                     <label for="trailer">Trailer</label>
-                    <input id='trailer' type="file" name="trailer" onChange={(e) => setTrailer(e.target.files[0])}/>
+                    <input id='trailer' type="file" name="trailer" onChange={(e) => setTrailer(e.target.files[0])} />
                 </div>
 
                 <div className="addProductItem">
@@ -84,7 +85,11 @@ const NewMovie = () => {
                     <input id='video' type="file" name="video" onChange={(e) => setVideo(e.target.files[0])} />
                 </div>
 
-                <button className="addProductButton">Create</button>
+                {uploaded === 5 ? (
+                    <button className="addProductButton">Create</button>
+                ) : (
+                    <button className="addProductButton">Upload</button>
+                )}
             </form>
         </div>
     )
