@@ -13,8 +13,6 @@ const Movie = () => {
     const movieId = pathname.split('/').pop();
     const [movie, setMovie] = useState(location.state?.movie || null);
 
-    console.log("The ID: ", movieId)
-
     const fetchMovieById = async (movieId) => {
         try {
             const res = await axios.get(`http://localhost:8800/api/movies/find/${movieId}`, {
