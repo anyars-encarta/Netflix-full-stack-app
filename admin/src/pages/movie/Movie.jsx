@@ -20,7 +20,7 @@ const Movie = () => {
                 token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
             }
         });
-        console.log("The data: ", res.data)
+        
         return res.data;
         
         } catch (e) {
