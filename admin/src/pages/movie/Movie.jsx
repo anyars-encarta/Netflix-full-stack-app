@@ -84,25 +84,28 @@ const Movie = () => {
             <div className="productBottom">
                 <form className="productForm">
                     <div className="productFormLeft">
-                        <label for="pname">Product Name</label>
-                        <input id='pname' type="text" placeholder='HP Laptop' />
+                        <label for="pname">Movie Title</label>
+                        <input id='pname' type="text" placeholder={movie.title} />
 
-                        <label for="inStock">In Stock</label>
-                        <select name="inStock" id="inStock">
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                        </select>
+                        <label for="year">Year</label>
+                        <input id="year" type="text" placeholder={movie.year} />
 
-                        <label for="active">Active</label>
-                        <select name="active" id="active">
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                        </select>
+                        <label for="genre">Genre</label>
+                        <input id="genre" type="text" placeholder={movie.genre} />
+
+                        <label for="limit">limit</label>
+                        <input id="limit" type="text" placeholder={movie.limit} />
+
+                        <label for="trailer">Trailer</label>
+                        <input id="trailer" type="file" />
+
+                        <label for="video">Video</label>
+                        <input id="video" type="file" />
                     </div>
 
                     <div className="productFormRight">
                         <div className="productUpload">
-                            <img src="/images/dell_desktop.jpg" alt="" className="productUploadImage" />
+                            <img src={movie.img} alt="" className="productUploadImage" />
                             <label for="file"><Publish className='productUpdateIcon' /></label>
                             <input id='file' type="file" style={{ display: 'none' }} />
                         </div>
