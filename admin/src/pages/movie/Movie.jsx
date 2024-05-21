@@ -1,5 +1,5 @@
 import './movie.scss';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Chart from '../../components/chart/Chart';
 import { productData } from '../../constants/chartData';
 import { Publish } from '@mui/icons-material';
@@ -13,7 +13,7 @@ const Movie = () => {
     const movieId = pathname.split('/').pop();
     const [movie, setMovie] = useState(location.state?.movie || null);
 
-    console.log("Movie ID: ", movieId); // The movie ID is conrrectly consoled to the log here
+    console.log("The ID: ", movieId)
 
     const fetchMovieById = async (movieId) => {
         try {
@@ -22,7 +22,7 @@ const Movie = () => {
                 token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
             }
         });
-        console.log("The data : ", res.data)
+        console.log("The data: ", res.data)
         return res.data;
         
         } catch (e) {
@@ -32,17 +32,14 @@ const Movie = () => {
 
     useEffect(() => {
         if (!movie) {
-            // Fetch movie details if not available from location.state
             fetchMovieById(movieId).then(fetchedMovie => setMovie(fetchedMovie));
         }
     }, [movieId, movie]);
-
+    
     if (!movie) {
-        return <div>Loading...</div>;
+        return <div />;
     }
     
-    console.log("This is the fetched movie: ", movie);
-
     return (
         <div className='product'>
             <div className="productTitleContainer">
@@ -59,13 +56,13 @@ const Movie = () => {
                 </div>
                 <div className="productTopRight">
                     <div className="productInfoTop">
-                        <img src='{movie.img} ' alt="" className="productInfoImage" />
-                        <span className="productName">''</span>
+                        <img src={movie.img} alt="" className="productInfoImage" />
+                        <span className="productName">{movie.title}</span>
                     </div>
                     <div className="productInfoBottom">
                         <div className="productInfoItem">
                             <span className="productInfoKey">id:</span>
-                            <span className="productInfoValue">123</span>
+                            <span className="productInfoValue">{movie._id}</span>
                         </div>
 
                         <div className="productInfoItem">
