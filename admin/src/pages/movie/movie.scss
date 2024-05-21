@@ -59,7 +59,9 @@
                     display: flex;
                     justify-content: space-between;
 
-                    .productInfoKey {}
+                    .productInfoKey {
+                        margin-right: 20px;
+                    }
 
                     .productInfoValue {
                         font-weight: 300;

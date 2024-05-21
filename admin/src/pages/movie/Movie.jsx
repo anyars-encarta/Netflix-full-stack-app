@@ -20,7 +20,7 @@ const Movie = () => {
                 token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
             }
         });
-        
+
         return res.data;
         
         } catch (e) {
@@ -64,18 +64,18 @@ const Movie = () => {
                         </div>
 
                         <div className="productInfoItem">
-                            <span className="productInfoKey">Sales:</span>
-                            <span className="productInfoValue">5123</span>
+                            <span className="productInfoKey">Genre:</span>
+                            <span className="productInfoValue">{movie.genre}</span>
                         </div>
 
                         <div className="productInfoItem">
-                            <span className="productInfoKey">Active:</span>
-                            <span className="productInfoValue">Yes</span>
+                            <span className="productInfoKey">year:</span>
+                            <span className="productInfoValue">{movie.year}</span>
                         </div>
 
                         <div className="productInfoItem">
-                            <span className="productInfoKey">In Stock:</span>
-                            <span className="productInfoValue">No</span>
+                            <span className="productInfoKey">Limit:&nbsp;</span>
+                            <span className="productInfoValue">{movie.limit}</span>
                         </div>
                     </div>
                 </div>
