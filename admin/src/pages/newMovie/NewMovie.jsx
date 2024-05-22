@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './newMovie.scss';
+import { storage } from "../../firebase";
 
 const NewMovie = () => {
     const [movie, setMovie] = useState(null);
@@ -15,8 +16,27 @@ const NewMovie = () => {
         setMovie({ ...movie, [e.target.name]: value });
     };
 
-    console.log("On change:", movie);
-    console.log("Image: ", img)
+    const upload = (items) => {
+        items.forEach((item) => {
+            const uploadTask = storage.ref(`/items/${item.file.name}`).put(item);
+            uploadTask.on("state_changes", snapshot => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            });
+        });
+    };
+
+    const handleUpload = (e) => {
+        e.preventDefault();
+
+        upload([
+            { file: img, label: "img" },
+            { file: imgTitle, label: "imgTitle" },
+            { file: imgSm, label: "imgSm" },
+            { file: trailer, label: "trailer" },
+            { file: video, label: "video" },
+        ])
+    };
+
     return (
         <div className='newProduct'>
             <h1 className="addProductTitle">New Movie</h1>
@@ -88,7 +108,7 @@ const NewMovie = () => {
                 {uploaded === 5 ? (
                     <button className="addProductButton">Create</button>
                 ) : (
-                    <button className="addProductButton">Upload</button>
+                    <button className="addProductButton" onClick={handleUpload}>Upload</button>
                 )}
             </form>
         </div>

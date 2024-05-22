@@ -1,8 +1,6 @@
+// import firebase from 'firebase';
 import { initializeApp } from "firebase/app";
-import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
-
-import firebase from 'firebase';
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -14,6 +12,6 @@ const firebaseConfig = {
     measurementId: process.env.REACT_APP_MEASUREMENT_ID
   };
 
-  firebase.initializeApp(firebaseConfig);
-  const storage = firebase.storage;
-  export default storage;
+  const app = initializeApp(firebaseConfig);
+  // const storage = firebase.storage();
+  export const storage = getStorage();
