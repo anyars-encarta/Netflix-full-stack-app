@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './newMovie.scss';
 import { storage } from "../../firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const NewMovie = () => {
-    const [movie, setMovie] = useState(null);
+    const [movie, setMovie] = useState({});
     const [img, setImg] = useState(null);
     const [imgTitle, setImgTitle] = useState(null);
     const [imgSm, setImgSm] = useState(null);
@@ -18,10 +19,27 @@ const NewMovie = () => {
 
     const upload = (items) => {
         items.forEach((item) => {
-            const uploadTask = storage.ref(`/items/${item.file.name}`).put(item);
-            uploadTask.on("state_changes", snapshot => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            });
+            const storageRef = ref(storage, `/items/${item.file?.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, item.file);
+
+            uploadTask.on(
+                "state_changed", 
+                (snapshot) => {
+                const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                console.log("Upload is " + progress + "% complete...");
+            },
+                (err) => { 
+                    console.error(err) 
+                }, 
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                        setMovie((prev) => {
+                            return { ...prev, [item.label]: url };
+                        });
+                        setUploaded((prev) => prev + 1);
+                    });
+                }
+            );
         });
     };
 
@@ -37,6 +55,7 @@ const NewMovie = () => {
         ])
     };
 
+    console.log("This is the movie: ", movie)
     return (
         <div className='newProduct'>
             <h1 className="addProductTitle">New Movie</h1>
@@ -106,7 +125,7 @@ const NewMovie = () => {
                 </div>
 
                 {uploaded === 5 ? (
-                    <button className="addProductButton">Create</button>
+                    <button className="addProductButton" type="submit">Create</button>
                 ) : (
                     <button className="addProductButton" onClick={handleUpload}>Upload</button>
                 )}
