@@ -15,7 +15,8 @@ import {
     Report,
     // PlayArrow,
     PlayCircleOutline,
-    ListAlt,
+    // ListAlt,
+    FormatListBulletedOutlined,
 } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
@@ -83,8 +84,10 @@ const Sidebar = () => {
                             className={activeIndex === 5 ? "sidebarListItem active" : "sidebarListItem"}
                             onClick={() => handleSelect(5)}
                         >
-                            <ListAlt className='sidebarIcon' />
-                            Lists
+                            <Link to="/lists" className='link'>
+                                <FormatListBulletedOutlined className='sidebarIcon' />
+                                Lists
+                            </Link>
                         </li>
                         <li
                             className={activeIndex === 6 ? "sidebarListItem active" : "sidebarListItem"}
