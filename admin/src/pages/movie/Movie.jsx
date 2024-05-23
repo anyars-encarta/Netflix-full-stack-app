@@ -93,7 +93,6 @@ const Movie = () => {
         ])
     };
 
-
     const handleUpdate = (e) => {
         e.preventDefault();
 
