@@ -37,7 +37,7 @@ const Movie = () => {
         
         } catch (e) {
             console.log(e);
-        } 
+        }
     }
 
     useEffect(() => {
@@ -98,11 +98,13 @@ const Movie = () => {
     const handleUpdate = (e) => {
         e.preventDefault();
 
-        if (uploaded === 3) {
-            updateMovie(movie._id, movie, dispatch);
-        } else {
-            handleUpload(e);
-        }
+        handleUpload(e);
+        updateMovie(movie._id, movie, dispatch);
+        // if (uploaded === 3) {
+        //     updateMovie(movie._id, movie, dispatch);
+        // } else {
+        //     handleUpload(e);
+        // }
     };
 //UPDATE ENDS HERE
 
