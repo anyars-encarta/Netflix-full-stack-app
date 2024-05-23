@@ -34,7 +34,10 @@ const App = () => {
             <Route path='/movies' element={<MovieList />} />
             <Route path='/movie/:movieId' element={<Movie />} />
             <Route path='/newMovie' element={<NewMovie />} />
+
             <Route path='/lists' element={<Lists />} />
+            {/* <Route path='/list/:listId' element={<Movie />} />
+            <Route path='/newList' element={<NewMovie />} /> */}
           </Routes>
         </div>
       </>
