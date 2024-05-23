@@ -4,7 +4,10 @@ import Chart from '../../components/chart/Chart';
 import { productData } from '../../constants/chartData';
 import { Publish } from '@mui/icons-material';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { MovieContext } from '../../context/movieContext/MovieContext';
+import { updateMovie } from '../../context/movieContext/apiCalls';
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const Movie = () => {
     const title = 'Downloads Performance';
@@ -12,6 +15,15 @@ const Movie = () => {
     const pathname = location.pathname;
     const movieId = pathname.split('/').pop();
     const [movie, setMovie] = useState(location.state?.movie || null);
+
+    // const [movie, setMovie] = useState({});
+    // const [img, setImg] = useState(null);
+    const [imgTitle, setImgTitle] = useState(null);
+    // const [imgSm, setImgSm] = useState(null);
+    const [trailer, setTrailer] = useState(null);
+    const [video, setVideo] = useState(null);
+    const [uploaded, setUploaded] = useState(0);
+    const { dispatch } = useContext(MovieContext);
 
     const fetchMovieById = async (movieId) => {
         try {
@@ -25,7 +37,7 @@ const Movie = () => {
         
         } catch (e) {
             console.log(e);
-        } 
+        }
     }
 
     useEffect(() => {
@@ -33,7 +45,66 @@ const Movie = () => {
             fetchMovieById(movieId).then(fetchedMovie => setMovie(fetchedMovie));
         }
     }, [movieId, movie]);
-    
+
+//UPDATE STARTS HERE
+    const handleChange = (e) => {
+        const value = e.target.value
+        setMovie({ ...movie, [e.target.name]: value });
+    };
+
+    const upload = (items) => {
+        items.forEach((item) => {
+            const fileName = item.file.name;
+            const storageRef = ref(storage, `/items/${fileName}`);
+            const uploadTask = uploadBytesResumable(storageRef, item.file);
+
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                    console.log("Upload is " + progress + "% complete...");
+                },
+                (err) => {
+                    console.error(err)
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                        setMovie((prev) => {
+                            return { ...prev, [item.label]: url };
+                        });
+                        setUploaded((prev) => prev + 1);
+                    });
+                }
+            );
+        });
+    };
+
+    const handleUpload = (e) => {
+        e.preventDefault();
+
+        const items = [
+            // { file: img, label: "img" },
+            { file: imgTitle, label: "imgTitle" },
+            // { file: imgSm, label: "imgSm" },
+            { file: trailer, label: "trailer" },
+            { file: video, label: "video" },
+        ];
+        upload(items);
+    };
+
+    const handleUpdate = (e) => {
+        e.preventDefault();
+
+        handleUpload(e);
+        updateMovie(movie._id, movie, dispatch);
+        // if (uploaded === 3) {
+        //     updateMovie(movie._id, movie, dispatch);
+        // } else {
+        //     handleUpload(e);
+        // }
+    };
+//UPDATE ENDS HERE
+
     if (!movie) {
         return <div />;
     }
@@ -85,32 +156,32 @@ const Movie = () => {
                 <form className="productForm">
                     <div className="productFormLeft">
                         <label for="pname">Movie Title</label>
-                        <input id='pname' type="text" placeholder={movie.title} />
+                        <input id='pname' type="text" placeholder={movie.title} name="title" value={movie.title || ''} onChange={handleChange} />
 
                         <label for="year">Year</label>
-                        <input id="year" type="text" placeholder={movie.year} />
+                        <input id="year" type="text" placeholder={movie.year} name="year" value={movie.year || ''} onChange={handleChange} />
 
                         <label for="genre">Genre</label>
-                        <input id="genre" type="text" placeholder={movie.genre} />
+                        <input id="genre" type="text" placeholder={movie.genre} name="genre" value={movie.genre || ''} onChange={handleChange} />
 
                         <label for="limit">limit</label>
-                        <input id="limit" type="text" placeholder={movie.limit} />
+                        <input id="limit" type="text" placeholder={movie.limit} name="limit" value={movie.limit || ''} onChange={handleChange} />
 
                         <label for="trailer">Trailer</label>
-                        <input id="trailer" type="file" />
+                        <input id="trailer" type="file" onChange={(e) => setTrailer(e.target.files[0])} />
 
                         <label for="video">Video</label>
-                        <input id="video" type="file" />
+                        <input id="video" type="file" onChange={(e) => setVideo(e.target.files[0])} />
                     </div>
 
                     <div className="productFormRight">
                         <div className="productUpload">
                             <img src={movie.img} alt="" className="productUploadImage" />
                             <label for="file"><Publish className='productUpdateIcon' /></label>
-                            <input id='file' type="file" style={{ display: 'none' }} />
+                            <input id='file' type="file" style={{ display: 'none' }} onChange={(e) => setImgTitle(e.target.files[0])} />
                         </div>
 
-                        <button className="productButton">Update</button>
+                        <button className="productButton" onClick={() => handleUpdate}>Update</button>
                     </div>
                 </form>
             </div>

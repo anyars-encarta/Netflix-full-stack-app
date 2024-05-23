@@ -38,7 +38,7 @@ router.put("/:id", verify, async (req, res) => {
         }
 
     } else {
-        res.status(403).json('You are not allowed to create movies!');
+        res.status(403).json('You are not allowed to update movies!');
     }
 });
 
