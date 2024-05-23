@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { MovieContext } from '../../context/movieContext/MovieContext';
 import { updateMovie } from '../../context/movieContext/apiCalls';
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const Movie = () => {
     const title = 'Downloads Performance';
@@ -56,7 +57,7 @@ const Movie = () => {
 
     const upload = (items) => {
         items.forEach((item) => {
-            const fileName = item.file?.name;
+            const fileName = item.file.name;
             const storageRef = ref(storage, `/items/${fileName}`);
             const uploadTask = uploadBytesResumable(storageRef, item.file);
 
@@ -84,20 +85,24 @@ const Movie = () => {
     const handleUpload = (e) => {
         e.preventDefault();
 
-        upload([
-            { file: img, label: "img" },
+        const items = [
+            // { file: img, label: "img" },
             { file: imgTitle, label: "imgTitle" },
-            { file: imgSm, label: "imgSm" },
+            // { file: imgSm, label: "imgSm" },
             { file: trailer, label: "trailer" },
             { file: video, label: "video" },
-        ])
+        ];
+        upload(items);
     };
 
     const handleUpdate = (e) => {
         e.preventDefault();
 
-        handleUpload();
-        updateMovie(movie, dispatch);
+        if (uploaded === 3) {
+            updateMovie(movie._id, movie, dispatch);
+        } else {
+            handleUpload(e);
+        }
     };
 //UPDATE ENDS HERE
 
@@ -152,16 +157,16 @@ const Movie = () => {
                 <form className="productForm">
                     <div className="productFormLeft">
                         <label for="pname">Movie Title</label>
-                        <input id='pname' type="text" value={movie.title} onChange={handleChange} />
+                        <input id='pname' type="text" placeholder={movie.title} name="title" value={movie.title || ''} onChange={handleChange} />
 
                         <label for="year">Year</label>
-                        <input id="year" type="text" value={movie.year} onChange={handleChange} />
+                        <input id="year" type="text" placeholder={movie.year} name="year" value={movie.year || ''} onChange={handleChange} />
 
                         <label for="genre">Genre</label>
-                        <input id="genre" type="text" value={movie.genre} onChange={handleChange} />
+                        <input id="genre" type="text" placeholder={movie.genre} name="genre" value={movie.genre || ''} onChange={handleChange} />
 
                         <label for="limit">limit</label>
-                        <input id="limit" type="text" value={movie.limit} onChange={handleChange} />
+                        <input id="limit" type="text" placeholder={movie.limit} name="limit" value={movie.limit || ''} onChange={handleChange} />
 
                         <label for="trailer">Trailer</label>
                         <input id="trailer" type="file" onChange={(e) => setTrailer(e.target.files[0])} />
@@ -177,7 +182,7 @@ const Movie = () => {
                             <input id='file' type="file" style={{ display: 'none' }} onChange={(e) => setImgTitle(e.target.files[0])} />
                         </div>
 
-                        <button className="productButton" onClick={() => handleUpdate(movieId)}>Update</button>
+                        <button className="productButton" onClick={() => handleUpdate}>Update</button>
                     </div>
                 </form>
             </div>
