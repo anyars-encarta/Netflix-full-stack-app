@@ -1,15 +1,15 @@
 import axios from "axios";
-import { 
+import {
     getMoviesStart,
-     getMoviesSuccess, 
-     getMoviesFailure,
-     deleteMovieStart,
-     deleteMovieSuccess,
-     deleteMovieFailure,
-     createMovieStart,
-     createMovieSuccess,
-     createMovieFailure,
-    } from "./MovieActions";
+    getMoviesSuccess,
+    getMoviesFailure,
+    deleteMovieStart,
+    deleteMovieSuccess,
+    deleteMovieFailure,
+    createMovieStart,
+    createMovieSuccess,
+    createMovieFailure,
+} from "./MovieActions";
 
 export const getMovies = async (dispatch) => {
     dispatch(getMoviesStart());
@@ -20,9 +20,9 @@ export const getMovies = async (dispatch) => {
                 token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
             },
         });
-        
+
         dispatch(getMoviesSuccess(res.data));
-        
+
     } catch (e) {
         dispatch(getMoviesFailure());
     }
@@ -37,9 +37,9 @@ export const createMovie = async (movie, dispatch) => {
                 token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
             },
         });
-        
+
         dispatch(createMovieSuccess(res.data));
-        
+
     } catch (e) {
         dispatch(createMovieFailure());
     }
@@ -54,9 +54,9 @@ export const deleteMovie = async (id, dispatch) => {
                 token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
             },
         });
-        
+
         dispatch(deleteMovieSuccess(id));
-        
+
     } catch (e) {
         dispatch(deleteMovieFailure());
     }
