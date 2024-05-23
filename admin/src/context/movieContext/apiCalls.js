@@ -9,8 +9,12 @@ import {
     createMovieStart,
     createMovieSuccess,
     createMovieFailure,
+    updateMovieStart,
+    updateMovieSuccess,
+    updateMovieFailure,
 } from "./MovieActions";
 
+// Fetch Movies
 export const getMovies = async (dispatch) => {
     dispatch(getMoviesStart());
 
@@ -28,6 +32,7 @@ export const getMovies = async (dispatch) => {
     }
 };
 
+// Create a Movie
 export const createMovie = async (movie, dispatch) => {
     dispatch(createMovieStart());
 
@@ -45,6 +50,25 @@ export const createMovie = async (movie, dispatch) => {
     }
 };
 
+// Update a Movie
+export const updateMovie = async (id, movie, dispatch) => {
+    dispatch(updateMovieStart());
+
+    try {
+        const res = await axios.put("/movies/" + id, movie, {
+            headers: {
+                token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+            },
+        });
+
+        dispatch(updateMovieSuccess(res.data));
+
+    } catch (e) {
+        dispatch(updateMovieFailure());
+    }
+};
+
+// Delete a Movie
 export const deleteMovie = async (id, dispatch) => {
     dispatch(deleteMovieStart());
 
