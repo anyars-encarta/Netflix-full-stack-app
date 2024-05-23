@@ -45,9 +45,6 @@ const Movie = () => {
             fetchMovieById(movieId).then(fetchedMovie => setMovie(fetchedMovie));
         }
     }, [movieId, movie]);
-    
-
-
 
 //UPDATE STARTS HERE
     const handleChange = (e) => {
