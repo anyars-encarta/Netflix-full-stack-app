@@ -5,7 +5,7 @@ import { productRows } from '../../constants/userTable';
 import { DeleteOutline } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { ListContext } from '../../context/listContext/ListContext';
-import { getLists } from '../../context/listContext/apiCalls';
+import { deleteList, getLists } from '../../context/listContext/apiCalls';
 
 const Lists = () => {
     const { lists, dispatch } = useContext(ListContext);
@@ -15,7 +15,7 @@ const Lists = () => {
     }, [dispatch]);
 
     const handleDelete = (id) => {
-        // deleteMovie(id, dispatch)
+        deleteList(id, dispatch)
     };
 
     const columns = [
