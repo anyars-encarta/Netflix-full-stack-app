@@ -39,35 +39,39 @@ const NewList = () => {
             <h1 className="addProductTitle">New List</h1>
 
             <form className="addProductForm">
-                <div className="addProductItem">
-                    <label for="listTitle">List Title</label>
-                    <input id='listTitle' type="text" placeholder='Movie Title' name="title" onChange={handleChange} />
+                <div className="left">
+                    <div className="addProductItem">
+                        <label for="listTitle">List Title</label>
+                        <input id='listTitle' type="text" placeholder='Movie Title' name="title" onChange={handleChange} />
+                    </div>
+
+                    <div className="addProductItem">
+                        <label for="genre">Genre</label>
+                        <input id='genre' type="text" placeholder='Genre' name="genre" onChange={handleChange} />
+                    </div>
+
+                    <div className="addProductItem">
+                        <label for="type">Type</label>
+                        <select id='type' name='type' onChange={handleChange}>
+                            <option>Type</option>
+                            <option value='movie'>Movie</option>
+                            <option value='series'>Series</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div className="addProductItem">
-                    <label for="genre">Genre</label>
-                    <input id='genre' type="text" placeholder='Genre' name="genre" onChange={handleChange} />
-                </div>
+                <div className="right">
+                    <div className="addProductItem">
+                        <label for="content">Content</label>
+                        <select multiple name='content' onChange={handleSelect} style={{ height: "295px" }}>
+                            {movies.map((movie) => (
+                                <option key={movie._id} value={movie._id}>{movie.title}</option>
+                            ))}
+                        </select>
+                    </div>
 
-                <div className="addProductItem">
-                    <label for="type">Type</label>
-                    <select id='type' name='type' onChange={handleChange}>
-                        <option>Type</option>
-                        <option value='movie'>Movie</option>
-                        <option value='series'>Series</option>
-                    </select>
+                    <button className="addProductButton" type="submit" onClick={handleSubmit}>Create</button>
                 </div>
-
-                <div className="addProductItem">
-                    <label for="content">Content</label>
-                    <select multiple name='content' onChange={handleSelect}>
-                        {movies.map((movie) => (
-                            <option key={movie._id} value={movie._id}>{movie.title}</option>
-                        ))}
-                    </select>
-                </div>
-
-                <button className="addProductButton" type="submit" onClick={handleSubmit}>Create</button>
             </form>
         </div>
     )
