@@ -37,8 +37,6 @@ const SingleList = () => {
         }
     }, [listId, list]);
 
-    console.log('This is the list data: ', list)
-
     //UPDATE STARTS HERE
         const handleChange = (e) => {
             const value = e.target.value
