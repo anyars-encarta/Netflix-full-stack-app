@@ -5,7 +5,7 @@ import { UserContext } from '../../context/userContext/UserContext';
 const NewUser = () => {
     const [user, setUser] = useState({});
     const [img, setImg] = useState(null);
-    
+
     const [uploaded, setUploaded] = useState(0);
     const { dispatch } = useContext(UserContext);
 
@@ -15,6 +15,10 @@ const NewUser = () => {
 
             <form className="newUserForm">
                 <div className='newUserInputSection'>
+                    <div className="newUserItem">
+                        <label for="img">Image</label>
+                        <input id='img' type="file" name="img" onChange={(e) => setImg(e.target.files[0])} />
+                    </div>
                     <div className="newUserItem">
                         <label htmlFor="username">Username</label>
                         <input id='username' type="text" placeholder='Username' />
@@ -63,6 +67,16 @@ const NewUser = () => {
                     <div className="newUserItem">
                         <label for="active">Active</label>
                         <select className='newUserSelect' name="active" id="active">
+                            <option>Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+
+                    <div className="newUserItem">
+                        <label for="admin">Admin</label>
+                        <select className='newUserSelect' name="admin" id="active">
+                            <option>Select</option>
                             <option value="yes">Yes</option>
                             <option value="no">No</option>
                         </select>

@@ -10,6 +10,8 @@ const UserSchema = new Schema({
     profilePicture: { type: String, default: "" },
     contact: { type: String },
     address: { type: String },
+    gender: { type: String, required: true },
+    isActive: { type: Boolean, default: true },
     isAdmin: { type: Boolean, default: false },
 },
     { timestamps: true }
