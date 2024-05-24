@@ -26,19 +26,19 @@ export const getListsFailure = () => ({
 //     type: "CREATE_MOVIE_FAILURE",
 // });
 
-// // Update a Movie
-// export const updateMovieStart = () => ({
-//     type: "UPDATE_MOVIE_START",
-// });
+// Update a List
+export const updateListStart = () => ({
+    type: "UPDATE_LIST_START",
+});
 
-// export const updateMovieSuccess = (movie) => ({
-//     type: "UPDATE_MOVIE_SUCCESS",
-//     payload: movie,
-// });
+export const updateListSuccess = (list) => ({
+    type: "UPDATE_LIST_SUCCESS",
+    payload: list,
+});
 
-// export const updateMovieFailure = () => ({
-//     type: "UPDATE_MOVIE_FAILURE",
-// });
+export const updateListFailure = () => ({
+    type: "UPDATE_LIST_FAILURE",
+});
 
 // Delete Movie
 export const deleteListStart = () => ({

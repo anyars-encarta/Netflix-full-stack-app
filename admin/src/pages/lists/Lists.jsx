@@ -27,7 +27,7 @@ const Lists = () => {
             field: 'action', headerName: 'Action', width: 150, renderCell: (params) => {
                 return (
                     <>
-                        <Link to={{ pathname: "/movie/" + params.row._id, state: { movie: params.row } }} className='link'>
+                        <Link to={{ pathname: "/list/" + params.row._id, state: { list: params.row } }} className='link'>
                             <button className="productListEdit">Edit</button>
                         </Link>
 
