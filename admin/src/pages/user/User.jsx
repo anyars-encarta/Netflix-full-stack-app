@@ -1,10 +1,58 @@
-import React from 'react';
-import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish } from '@mui/icons-material';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import {
+  CalendarToday,
+  LocationSearching,
+  MailOutline,
+  PermIdentity,
+  PhoneAndroid,
+  Publish
+} from '@mui/icons-material';
 
 import './user.scss';
-import { Link } from 'react-router-dom';
+import { UserContext } from '../../context/userContext/UserContext';
+import axios from 'axios';
+
 
 const SingleUser = () => {
+  const location = useLocation();
+  const pathname = location.pathname;
+  const userId = pathname.split('/').pop();
+  const [user, setUser] = useState(location.state?.user || null);
+
+
+  const [img, setImg] = useState(null);
+  const [uploaded, setUploaded] = useState(0);
+  const { dispatch } = useContext(UserContext);
+
+  const fetchUserById = async (movieId) => {
+    try {
+      const res = await axios.get(`http://localhost:8800/api/users/find/${userId}`, {
+        headers: {
+          token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+        }
+      });
+
+      return res.data;
+
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    if (!user) {
+      fetchUserById(userId).then(fetchedUser => setUser(fetchedUser));
+    }
+  }, [userId, user]);
+
+  console.log("I can see the user: ", user);
+
+  const createdAtDate = new Date(user?.createdAt);
+  const formattedDate = createdAtDate.toLocaleDateString();
+
+  console.log(formattedDate);
+
   return (
     <div className='user'>
       <div className="userTitleContainer">
@@ -21,7 +69,7 @@ const SingleUser = () => {
             <img src="/images/profile.jpg" alt="" className="userShowImg" />
 
             <div className="userShowTopTitle">
-              <span className="userShowUsername">John Doe</span>
+              <span className="userShowUsername">{user?.username}</span>
               <span className="userShowTitle">Full-stack Developer</span>
             </div>
           </div>
@@ -31,12 +79,12 @@ const SingleUser = () => {
 
             <div className="userShowInfo">
               <PermIdentity className='userShowIcon' />
-              <span className="userShowInfoTitle">johndoe</span>
+              <span className="userShowInfoTitle">{user?.username}</span>
             </div>
 
             <div className="userShowInfo">
               <CalendarToday className='userShowIcon' />
-              <span className="userShowInfoTitle">10.12.1999</span>
+              <span className="userShowInfoTitle">{formattedDate}</span>
             </div>
 
             <span className="userShowTitle">Contact Details</span>
@@ -47,7 +95,7 @@ const SingleUser = () => {
 
             <div className="userShowInfo">
               <MailOutline className='userShowIcon' />
-              <span className="userShowInfoTitle">johndoe@gmail.com</span>
+              <span className="userShowInfoTitle">{user?.email}</span>
             </div>
 
             <div className="userShowInfo">
@@ -68,7 +116,9 @@ const SingleUser = () => {
                   id='username'
                   type="text"
                   placeholder='encarta'
-                  className='userUpdateInput' />
+                  className='userUpdateInput' 
+                  value={user?.username}
+                  />
               </div>
 
               <div className="userUpdateItem">
@@ -77,7 +127,8 @@ const SingleUser = () => {
                   id='fullname'
                   type="text"
                   placeholder='John Doe'
-                  className='userUpdateInput' />
+                  className='userUpdateInput' 
+                  />
               </div>
 
               <div className="userUpdateItem">
@@ -86,7 +137,9 @@ const SingleUser = () => {
                   id='email'
                   type="email"
                   placeholder='johndoe@gmail.com'
-                  className='userUpdateInput' />
+                  className='userUpdateInput' 
+                  value={user?.email}
+                  />
               </div>
 
               <div className="userUpdateItem">
