@@ -9,12 +9,15 @@
         flex-direction: column;
 
         .newUserInputSection {
+            display: flex;
+            flex-wrap: wrap;
+
             .newUserItem {
-                max-width: 400px;
+                width: 250px;
                 display: flex;
                 flex-direction: column;
-                margin-top: 10px;
-                margin-right: 20px;
+                margin-bottom: 10px;
+                padding: 20px;
 
                 label {
                     margin-bottom: 10px;

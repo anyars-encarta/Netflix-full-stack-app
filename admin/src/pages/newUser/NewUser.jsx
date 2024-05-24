@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import './newUser.scss';
+import { UserContext } from '../../context/userContext/UserContext';
 
 const NewUser = () => {
+    const [user, setUser] = useState({});
+    const [img, setImg] = useState(null);
+    
+    const [uploaded, setUploaded] = useState(0);
+    const { dispatch } = useContext(UserContext);
+
     return (
         <div className='newUser'>
             <h1 className="newUserTitle">New User</h1>
