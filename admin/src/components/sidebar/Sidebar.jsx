@@ -5,16 +5,18 @@ import {
     Timeline,
     TrendingUp,
     PermIdentity,
-    Storefront,
-    AttachMoney,
+    // Storefront,
+    // AttachMoney,
     BarChart,
     MailOutline,
     DynamicFeed,
     ChatBubbleOutline,
     WorkOutline,
     Report,
-    PlayArrow,
+    // PlayArrow,
     PlayCircleOutline,
+    // ListAlt,
+    FormatListBulletedOutlined,
 } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
@@ -82,8 +84,10 @@ const Sidebar = () => {
                             className={activeIndex === 5 ? "sidebarListItem active" : "sidebarListItem"}
                             onClick={() => handleSelect(5)}
                         >
-                            <AttachMoney className='sidebarIcon' />
-                            Transactions
+                            <Link to="/lists" className='link'>
+                                <FormatListBulletedOutlined className='sidebarIcon' />
+                                Lists
+                            </Link>
                         </li>
                         <li
                             className={activeIndex === 6 ? "sidebarListItem active" : "sidebarListItem"}

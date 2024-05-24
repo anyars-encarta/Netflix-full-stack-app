@@ -34,6 +34,17 @@ router.delete("/:id", verify, async (req, res) => {
     }
 });
 
+// GET A LIST
+router.get("/find/:id", verify, async (req, res) => {
+    try {
+        const list = await List.findById(req.params.id);
+
+        res.status(200).json(list);
+    } catch (e) {
+        res.status(500).json(e)
+    }
+});
+
 // GET LISTS
 router.get("/", verify, async (req, res) => {
     const typeQuery = req.query.type;
