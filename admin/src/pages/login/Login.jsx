@@ -2,16 +2,19 @@ import { useContext, useState } from 'react';
 import './login.scss';
 import { AuthContext } from '../../context/authContext/AuthContext';
 import { login } from '../../context/authContext/apiCalls';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { isFetching, dispatch } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     login({ email, password }, dispatch);
+    navigate('/');
   };
 
   return (

@@ -6,8 +6,11 @@ const User = require("../models/User.js");
 //REGSITER
 router.post("/register", async (req, res) => {
     const newUser = new User({
+        fullname: req.body.fullname,
         username: req.body.username,
         email: req.body.email,
+        contact: req.body.contact,
+        address: req.body.address,
         // password: req.body.password,
         // Encrypt Password
         password: CryptoJS.AES.encrypt(

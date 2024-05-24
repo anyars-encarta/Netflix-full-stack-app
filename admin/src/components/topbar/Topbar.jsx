@@ -1,34 +1,60 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './topbar.scss';
-import { NotificationsNone, Language, Settings } from '@mui/icons-material';
+import {
+    NotificationsNone,
+    Language,
+    Settings,
+    ArrowDropDown
+} from '@mui/icons-material';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Topbar = () => {
-  return (
-    <div className='topbar'>
-        <div className="topbarWrapper">
-            <div className="topLeft">
-                <span className='logo'>Encarta Admin</span>
-            </div>
-            <div className="topRight">
-                <div className="topbarIconContainer">
-                    <NotificationsNone />
-                    <span className="topIconBadge">2</span>
-                </div>
+    const navigate = useNavigate();
 
-                <div className="topbarIconContainer">
-                    <Language />
-                    <span className="topIconBadge">2</span>
-                </div>
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        window.location.reload();
+        navigate('/login');
+    };
 
-                <div className="topbarIconContainer">
-                    <Settings />
+    return (
+        <div className='topbar'>
+            <div className="topbarWrapper">
+                <div className="topLeft">
+                    <span className='logo'>Encarta Admin</span>
                 </div>
+                <div className="topRight">
+                    <div className="topbarIconContainer">
+                        <NotificationsNone />
+                        <span className="topIconBadge">2</span>
+                    </div>
 
-                <img src="./images/profile.jpg" alt="" className="topAvatar" />
+                    <div className="topbarIconContainer">
+                        <Language />
+                        <span className="topIconBadge">2</span>
+                    </div>
+
+                    <div className="topbarIconContainer">
+                        <Settings />
+                    </div>
+
+
+                    <div className="profile">
+                        <img src="./images/profile.jpg" alt="" className="topAvatar" />
+                        <ArrowDropDown className='icon' />
+                        <div className="options">
+                            <span>Settings</span>
+                            <span onClick={handleLogout}>
+                                <Link to="/" className='link'>
+                                    Logout
+                                </Link>
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default Topbar

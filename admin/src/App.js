@@ -44,7 +44,9 @@ const App = () => {
         </div>
       </>
     ) : (
-      <Login />
+      <Routes>
+        <Route path='/login' element={<Login />} />
+      </Routes>
     )}
     </Router>
   );

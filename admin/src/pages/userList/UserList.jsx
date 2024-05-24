@@ -19,9 +19,9 @@ const UserList = () => {
     };
 
     const columns = [
-        { field: '_id', headerName: 'ID', width: 200 },
+        { field: '_id', headerName: 'ID', width: 100 },
         {
-            field: 'user', headerName: 'Username', width: 250, renderCell: (params) => {
+            field: 'username', headerName: 'Username', width: 250, renderCell: (params) => {
                 return (
                     <div className='userListUser'>
                         <img src={params.row.avatar} alt='' className='userListImage' />
@@ -30,6 +30,7 @@ const UserList = () => {
                 )
             }
         },
+        { field: 'fullname', headerName: 'Full Name', width: 200 },
         { field: 'email', headerName: 'Email', width: 300 },
         { field: 'isAdmin', headerName: 'IsAdmin', width: 120 },
         {

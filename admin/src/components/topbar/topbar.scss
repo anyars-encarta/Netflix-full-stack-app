@@ -48,13 +48,52 @@
                 }
             }
 
-            .topAvatar {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                cursor: pointer;
-                object-fit: cover;
+            
+            .profile {
+                position: relative;
+                display: flex;
+                align-items: center;
+
+                .topAvatar {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    object-fit: cover;
+                }
+
+                .options {
+                    display: none;
+                }
+
+                span {
+                    padding: 10px;
+                    border: 1px solid #000;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: #000;
+                        color: #fff;
+                    }
+                }
+
+                &:hover {
+                    .options {
+                        display: flex;
+                        flex-direction: column;
+                        position: absolute;
+                        background-color: gray;
+                        color: #fff;
+                        border-radius: 5px;
+                        top: 40px;
+                        right: 0px;
+                    }
+                }
             }
         }
+    }
+    .link {
+        text-decoration: none;
+        color: inherit;
     }
 }
