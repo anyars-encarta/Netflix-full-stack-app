@@ -1,23 +1,27 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { userRows } from '../../constants/userTable';
 import { DeleteOutline } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-
 import './userList.scss';
+import { UserContext } from '../../context/userContext/UserContext';
+import { getUsers } from '../../context/userContext/apiCalls';
 
 const UserList = () => {
-
-    const [data, setData] = useState(userRows);
+    const { users, dispatch } = useContext(UserContext);
+    
+    useEffect(() => {
+        getUsers(dispatch);
+    }, [dispatch]);
 
     const handleDelete = (id) => {
-       setData(data.filter((item) => item.id !== id))
+    //    setData(data.filter((item) => item.id !== id))
     };
 
 const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
+    { field: '_id', headerName: 'ID', width: 200 },
     {
-        field: 'user', headerName: 'Username', width: 200, renderCell: (params) => {
+        field: 'user', headerName: 'Username', width: 250, renderCell: (params) => {
             return (
                 <div className='userListUser'>
                     <img src={params.row.avatar} alt='' className='userListImage' />
@@ -26,9 +30,8 @@ const columns = [
             )
         }
     },
-    { field: 'email', headerName: 'Email', width: 200 },
-    { field: 'status', headerName: 'Status', width: 120 },
-    { field: 'transaction', headerName: 'Transaction Volume', width: 160 },
+    { field: 'email', headerName: 'Email', width: 300 },
+    { field: 'isAdmin', headerName: 'IsAdmin', width: 120 },
     {
         field: 'action', headerName: 'Action', width: 150, renderCell: (params) => {
             return (
@@ -47,7 +50,7 @@ const columns = [
     return (
         <div className='userList'>
             <DataGrid
-                rows={data}
+                rows={users}
                 columns={columns}
                 disableRowSelectionOnClick
                 initialState={{
@@ -57,6 +60,7 @@ const columns = [
                 }}
                 pageSizeOptions={[5, 10]}
                 checkboxSelection
+                getRowId={(r) => r._id}
             />
         </div>
     )
