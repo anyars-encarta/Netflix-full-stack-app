@@ -12,19 +12,19 @@ export const getListsFailure = () => ({
     type: "GET_LISTS_FAILURE",
 });
 
-// // Create a Movie
-// export const createMovieStart = () => ({
-//     type: "CREATE_MOVIE_START",
-// });
+// Create a List
+export const createListStart = () => ({
+    type: "CREATE_LIST_START",
+});
 
-// export const createMovieSuccess = (movie) => ({
-//     type: "CREATE_MOVIE_SUCCESS",
-//     payload: movie,
-// });
+export const createListSuccess = (list) => ({
+    type: "CREATE_LIST_SUCCESS",
+    payload: list,
+});
 
-// export const createMovieFailure = () => ({
-//     type: "CREATE_MOVIE_FAILURE",
-// });
+export const createListFailure = () => ({
+    type: "CREATE_LIST_FAILURE",
+});
 
 // Update a List
 export const updateListStart = () => ({
