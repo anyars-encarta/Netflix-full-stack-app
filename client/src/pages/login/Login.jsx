@@ -17,7 +17,7 @@ const Login = () => {
         setPassword(passwordRef.current.value)
         
         if (email !== '' && password !== '') {
-            navigate('/home')
+            navigate('/')
         }
     };
 
