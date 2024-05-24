@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import { AuthContext } from '../../context/authContext/AuthContext';
+import { logout } from '../../context/authContext/AuthActions';
 import './topbar.scss';
 import {
     NotificationsNone,
@@ -8,12 +10,13 @@ import {
 } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
 
+
 const Topbar = () => {
+    const { dispatch } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        localStorage.removeItem('user');
-        window.location.reload();
+        dispatch(logout());
         navigate('/login');
     };
 
