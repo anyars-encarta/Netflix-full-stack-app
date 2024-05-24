@@ -27,7 +27,7 @@ const SingleList = () => {
             return res.data;
 
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }
 
@@ -104,7 +104,7 @@ const SingleList = () => {
                     </div>
 
                     <div className="productFormRight">
-                        <button className="productButton" onClick={() => handleUpdate}>Update</button>
+                        <button className="productButton" onClick={handleUpdate}>Update</button>
                     </div>
                 </form>
             </div>
