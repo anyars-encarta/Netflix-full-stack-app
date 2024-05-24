@@ -4,11 +4,13 @@ import { createList } from '../../context/listContext/apiCalls';
 import { MovieContext } from '../../context/movieContext/MovieContext';
 import { ListContext } from '../../context/listContext/ListContext';
 import { getMovies } from '../../context/movieContext/apiCalls';
+import { useNavigate } from 'react-router-dom';
 
 const NewList = () => {
     const [list, setList] = useState({});
     const { dispatch } = useContext(ListContext);
     const { movies, dispatch: dispatchMovie } = useContext(MovieContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getMovies(dispatchMovie);
@@ -30,6 +32,7 @@ const NewList = () => {
         e.preventDefault();
 
         createList(list, dispatch);
+        navigate("/lists");
     };
 
     return (
