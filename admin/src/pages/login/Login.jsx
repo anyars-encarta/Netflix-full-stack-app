@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import './login.scss';
-import { AuthContext } from '../../context/userContext/AuthContext';
-import { login } from '../../context/userContext/apiCalls';
+import { AuthContext } from '../../context/authContext/AuthContext';
+import { login } from '../../context/authContext/apiCalls';
 
 const Login = () => {
   const [email, setEmail] = useState('');

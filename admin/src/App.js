@@ -11,7 +11,7 @@ import Movie from "./pages/movie/Movie";
 import NewMovie from "./pages/newMovie/NewMovie";
 import Login from './pages/login/Login';
 import { useContext } from "react";
-import { AuthContext } from "./context/userContext/AuthContext";
+import { AuthContext } from "./context/authContext/AuthContext";
 import Lists from "./pages/lists/Lists";
 import SingleList from "./pages/singleList/SingleList";
 import NewList from "./pages/newList/NewList";
