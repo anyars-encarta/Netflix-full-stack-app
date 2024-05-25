@@ -32,23 +32,23 @@ export const getUsers = async (dispatch) => {
     }
 };
 
-// // Create a Movie
-// export const createMovie = async (movie, dispatch) => {
-//     dispatch(createMovieStart());
+// Create a User
+export const createUser = async (user, dispatch) => {
+    dispatch(createUserStart());
 
-//     try {
-//         const res = await axios.post("/movies/", movie, {
-//             headers: {
-//                 token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
-//             },
-//         });
+    try {
+        const res = await axios.post("/users/", user, {
+            headers: {
+                token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+            },
+        });
 
-//         dispatch(createMovieSuccess(res.data));
+        dispatch(createUserSuccess(res.data));
 
-//     } catch (e) {
-//         dispatch(createMovieFailure());
-//     }
-// };
+    } catch (e) {
+        dispatch(createUserFailure());
+    }
+};
 
 // // Update a Movie
 // export const updateMovie = async (id, movie, dispatch) => {

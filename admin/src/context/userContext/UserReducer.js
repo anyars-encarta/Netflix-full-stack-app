@@ -21,14 +21,14 @@ const UserReducer = (state, action) => {
                 error: true,
             };
 
-        case "CREATE_USERS_START":
+        case "CREATE_USER_START":
             return {
                 ...state,
                 isFetching: true,
                 error: false,
             };
 
-        case "CREATE_USERS_SUCCESS":
+        case "CREATE_USER_SUCCESS":
             return {
                 users: [...state.users, action.payload],
                 isFetching: false,

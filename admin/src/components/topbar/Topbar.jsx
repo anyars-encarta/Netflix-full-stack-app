@@ -12,7 +12,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Topbar = () => {
     const { user, dispatch } = useContext(AuthContext);
-    
+
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -26,7 +26,11 @@ const Topbar = () => {
                 <div className="topLeft">
                     <span className='logo'>Encarta Admin</span>
                 </div>
+
                 <div className="topRight">
+                    <div className="topbarIconContainer">
+                        <span className="welcomeUser">Welcome,&nbsp; {user.fullname}</span>
+                    </div>
                     <div className="topbarIconContainer">
                         <NotificationsNone />
                         <span className="topIconBadge">2</span>
