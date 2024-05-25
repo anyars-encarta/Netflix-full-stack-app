@@ -6,13 +6,14 @@ import {
     NotificationsNone,
     Language,
     Settings,
-    ArrowDropDown
+    ArrowDropDown,
+    PermIdentity
 } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
 
-
 const Topbar = () => {
-    const { dispatch } = useContext(AuthContext);
+    const { user, dispatch } = useContext(AuthContext);
+    
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -43,7 +44,7 @@ const Topbar = () => {
 
 
                     <div className="profile">
-                        <img src="./images/profile.jpg" alt="" className="topAvatar" />
+                        <img src={user.profilePicture || "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg"} alt="" className="topAvatar" />
                         <ArrowDropDown className='icon' />
                         <div className="options">
                             <span>Settings</span>
