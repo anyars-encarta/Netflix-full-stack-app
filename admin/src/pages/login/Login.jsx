@@ -17,11 +17,6 @@ const Login = () => {
     navigate('/');
   };
 
-  // const handleClick = () => {
-  //   console.log("Trying to visit new user page")
-  //   navigate('/newUser');
-  // };
-
   return (
     <div className='login'>
       <form className="loginForm">
