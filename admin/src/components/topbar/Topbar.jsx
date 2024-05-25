@@ -7,7 +7,6 @@ import {
     Language,
     Settings,
     ArrowDropDown,
-    PermIdentity
 } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
 
