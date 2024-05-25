@@ -44,17 +44,17 @@ const NewUser = () => {
         });
     };
 
-    const handleUpload = (e) => {
-        e.preventDefault();
+    // const handleUpload = (e) => {
+    //     e.preventDefault();
 
-        upload([
-            { file: img, label: "img" },
-        ])
-    };
+    //     upload([
+    //         { file: img, label: "img" },
+    //     ])
+    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        
         createUser(user, dispatch);
     };
 
@@ -70,32 +70,32 @@ const NewUser = () => {
                     </div>
                     <div className="newUserItem">
                         <label htmlFor="username">Username</label>
-                        <input id='username' type="text" placeholder='Username' onChange={handleChange} />
+                        <input id='username' type="text" placeholder='Username' name="username" onChange={handleChange} />
                     </div>
 
                     <div className="newUserItem">
                         <label htmlFor="fullname">Full Name</label>
-                        <input id='fullname' type="text" placeholder='Full Name' onChange={handleChange} />
+                        <input id='fullname' type="text" placeholder='Full Name' name="fullname" onChange={handleChange} />
                     </div>
 
                     <div className="newUserItem">
                         <label htmlFor="email">Email</label>
-                        <input id='email' type="email" placeholder='anything@something.com' onChange={handleChange} />
+                        <input id='email' type="email" placeholder='anything@something.com' name="email" onChange={handleChange} />
                     </div>
 
                     <div className="newUserItem">
                         <label htmlFor="password">Password</label>
-                        <input id='password' type="password" placeholder='Password' onChange={handleChange} />
+                        <input id='password' type="password" placeholder='Password' name="password" onChange={handleChange} />
                     </div>
 
                     <div className="newUserItem">
-                        <label htmlFor="phone">Phone</label>
-                        <input id='phone' type="text" placeholder='Phone' onChange={handleChange} />
+                        <label htmlFor="contact">Phone</label>
+                        <input id='contact' type="text" placeholder='Phone' name="contact" onChange={handleChange} />
                     </div>
 
                     <div className="newUserItem">
                         <label htmlFor="address">Address</label>
-                        <input id='address' type="text" placeholder='Address' onChange={handleChange} />
+                        <input id='address' type="text" placeholder='Address' name="address" onChange={handleChange} />
                     </div>
 
                     <div className="newUserItem">
@@ -115,7 +115,7 @@ const NewUser = () => {
 
                     <div className="newUserItem">
                         <label for="active">Active</label>
-                        <select className='newUserSelect' name="active" id="active" onChange={handleChange}>
+                        <select className='newUserSelect' name="isActive" id="active" onChange={handleChange}>
                             <option>Select</option>
                             <option value="yes">Yes</option>
                             <option value="no">No</option>
@@ -124,7 +124,7 @@ const NewUser = () => {
 
                     <div className="newUserItem">
                         <label for="admin">Admin</label>
-                        <select className='newUserSelect' name="admin" id="active" onChange={handleChange}>
+                        <select className='newUserSelect' name="isAdmin" id="admin" onChange={handleChange}>
                             <option>Select</option>
                             <option value="yes">Yes</option>
                             <option value="no">No</option>
@@ -133,11 +133,11 @@ const NewUser = () => {
                 </div>
 
                 <div className='newUserInputButton'>
-                    {uploaded === 1 ? (
+                    {/* {uploaded === 1 ? ( */}
                         <button className="newUserButton" onClick={handleSubmit}>Create</button>
-                    ) : (
-                        <button className="newUserButton" onClick={handleUpload}>Upload</button>
-                    )}
+                    {/* ) : ( */}
+                        {/* <button className="newUserButton" onClick={handleUpload}>Upload</button> */}
+                    {/* )} */}
                 </div>
             </form>
         </div>

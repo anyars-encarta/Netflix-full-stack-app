@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import './login.scss';
 import { AuthContext } from '../../context/authContext/AuthContext';
 import { login } from '../../context/authContext/apiCalls';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -17,6 +17,11 @@ const Login = () => {
     navigate('/');
   };
 
+  // const handleClick = () => {
+  //   console.log("Trying to visit new user page")
+  //   navigate('/newUser');
+  // };
+
   return (
     <div className='login'>
       <form className="loginForm">
@@ -26,6 +31,11 @@ const Login = () => {
           {isFetching ? 'Logging in...' : 'Login'}
         </button>
       </form>
+
+      <span className='noAccount'>
+        Dont have an account? &nbsp;
+        <Link to='/newUser'>Register</Link>
+      </span>
     </div>
   )
 }
