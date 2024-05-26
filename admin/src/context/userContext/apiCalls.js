@@ -37,11 +37,7 @@ export const createUser = async (user, dispatch) => {
     dispatch(createUserStart());
 
     try {
-        const res = await axios.post("http://localhost:8800/api/auth/register", user, {
-            headers: {
-                token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
-            },
-        });
+        const res = await axios.post("http://localhost:8800/api/auth/register", user);
 
         dispatch(createUserSuccess(res.data));
 

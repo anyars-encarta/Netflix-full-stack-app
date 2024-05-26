@@ -17,13 +17,21 @@ import NewList from "./pages/newList/NewList";
 import ProtectedRoute from "./components/protectedRoute/protectedRoute";
 
 const App = () => {
+  const user = localStorage.getItem('user');
 
   return (
     <Router>
       <Routes>
         {/* Public Routes */}
-        <Route path='/login' element={<Login />} />
-        <Route path='/newUser' element={<NewUser />} />
+        {!user ? (
+          <>
+            <Route path='/login' element={<Login />} />
+            <Route path='/newUser' element={<NewUser />} />
+          </>
+        ) : (
+          <Route path='/login' element={<Login />} />
+        )
+        }
 
         {/* Protected routes */}
         <Route
@@ -36,6 +44,7 @@ const App = () => {
                   <Sidebar />
                   <Routes>
                     <Route path='/' element={<Home />} />
+                    {user && <Route path='/newUser' element={<NewUser />} />}
                     <Route path='/users' element={<UserList />} />
                     <Route path='/user/:userId' element={<User />} />
                     <Route path='/movies' element={<MovieList />} />

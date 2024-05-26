@@ -4,13 +4,19 @@ import { UserContext } from '../../context/userContext/UserContext';
 import { createUser } from '../../context/userContext/apiCalls';
 import { storage } from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { useNavigate } from 'react-router-dom';
 
 const NewUser = () => {
     const [user, setUser] = useState({});
     const [img, setImg] = useState(null);
-
     const [uploaded, setUploaded] = useState(0);
     const { dispatch } = useContext(UserContext);
+    const [uploadProgress, setUploadProgress] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const loggedInUser = localStorage.getItem('user');
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const value = e.target.value
@@ -27,7 +33,8 @@ const NewUser = () => {
                 "state_changed",
                 (snapshot) => {
                     const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-                    console.log("Upload is " + progress + "% complete...");
+                    setUploadProgress(progress);
+                    // console.log("Upload is " + progress + "% complete...");
                 },
                 (err) => {
                     console.error(err)
@@ -44,18 +51,30 @@ const NewUser = () => {
         });
     };
 
-    // const handleUpload = (e) => {
-    //     e.preventDefault();
+    const handleUpload = (e) => {
+        e.preventDefault();
 
-    //     upload([
-    //         { file: img, label: "img" },
-    //     ])
-    // };
+        upload([
+            { file: img, label: "img" },
+        ])
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
+        setLoading(true);
+
         createUser(user, dispatch);
+
+        setLoading(false);
+
+        if (!loggedInUser) {
+
+            alert("Account created successfully. Login to continue.")
+            navigate('/login');
+        } else {
+            navigate('/users');
+        }
     };
 
     return (
@@ -65,7 +84,7 @@ const NewUser = () => {
             <form className="newUserForm">
                 <div className='newUserInputSection'>
                     <div className="newUserItem">
-                        <label for="img">Image</label>
+                        <label htmlFor="img">Image</label>
                         <input id='img' type="file" name="img" onChange={(e) => setImg(e.target.files[0])} />
                     </div>
                     <div className="newUserItem">
@@ -103,18 +122,18 @@ const NewUser = () => {
 
                         <div className="newUserGender">
                             <input id='male' type="radio" name='gender' value='male' onChange={handleChange} />
-                            <label for="male">Male</label>
+                            <label htmlFor="male">Male</label>
 
                             <input id='female' type="radio" name='gender' value='female' onChange={handleChange} />
-                            <label for="female">Female</label>
+                            <label htmlFor="female">Female</label>
 
                             <input id='other' type="radio" name='gender' value='other' onChange={handleChange} />
-                            <label for="other">Others</label>
+                            <label htmlFor="other">Others</label>
                         </div>
                     </div>
 
                     <div className="newUserItem">
-                        <label for="active">Active</label>
+                        <label htmlFor="active">Active</label>
                         <select className='newUserSelect' name="isActive" id="active" onChange={handleChange}>
                             <option>Select</option>
                             <option value="yes">Yes</option>
@@ -123,7 +142,7 @@ const NewUser = () => {
                     </div>
 
                     <div className="newUserItem">
-                        <label for="admin">Admin</label>
+                        <label htmlFor="admin">Admin</label>
                         <select className='newUserSelect' name="isAdmin" id="admin" onChange={handleChange}>
                             <option>Select</option>
                             <option value="yes">Yes</option>
@@ -133,11 +152,15 @@ const NewUser = () => {
                 </div>
 
                 <div className='newUserInputButton'>
-                    {/* {uploaded === 1 ? ( */}
-                        <button className="newUserButton" onClick={handleSubmit}>Create</button>
-                    {/* ) : ( */}
-                        {/* <button className="newUserButton" onClick={handleUpload}>Upload</button> */}
-                    {/* )} */}
+                    {uploaded === 1 ? (
+                        <button className="newUserButton" onClick={handleSubmit}>
+                            {loading ? 'Creating User' : 'Create'}
+                        </button>
+                    ) : (
+                        <button className="newUserButton" onClick={handleUpload}>
+                            {(uploadProgress !== '' && uploadProgress < 100) ? 'Uploading Image' : 'Upload'}
+                        </button>
+                    )}
                 </div>
             </form>
         </div>

@@ -24,15 +24,16 @@ const UserList = () => {
             field: 'username', headerName: 'Username', width: 250, renderCell: (params) => {
                 return (
                     <div className='userListUser'>
-                        <img src={params.row.avatar} alt='' className='userListImage' />
+                        <img src={params.row.profilePicture} alt='' className='userListImage' />
                         {params.row.username}
                     </div>
                 )
             }
         },
         { field: 'fullname', headerName: 'Full Name', width: 200 },
-        { field: 'email', headerName: 'Email', width: 300 },
+        { field: 'email', headerName: 'Email', width: 250 },
         { field: 'isAdmin', headerName: 'IsAdmin', width: 120 },
+        { field: 'isActive', headerName: 'IsActive', width: 120 },
         {
             field: 'action', headerName: 'Action', width: 150, renderCell: (params) => {
                 return (
