@@ -3,19 +3,29 @@ import {
     Notifications,
     ArrowDropDown
 } from '@mui/icons-material';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './navbar.scss';
+import { AuthContext } from '../../context/authContext/AuthContext';
+import { logout } from '../../context/authContext/AuthActions';
 
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
+    const { dispatch } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     window.onscroll = () => {
         setScrolled(window.scrollY === 0 ? false : true)
 
         return () => window.onscroll = null
     }
+
+    const handleLogout = () => {
+        // localStorage.removeItem('user');
+        dispatch(logout())
+        // navigate('/login');
+    };
 
     return (
         <div className={scrolled ? 'navbarContainer scrolled' : 'navbarContainer'}>
@@ -58,11 +68,7 @@ const Navbar = () => {
                         <ArrowDropDown className='icon' />
                         <div className="options">
                             <span>Settings</span>
-                            <span>
-                                <Link to="/login" className='link'>
-                                    Logout
-                                </Link>
-                            </span>
+                            <span onClick={handleLogout}>Logout</span>
                         </div>
                     </div>
                 </div>
