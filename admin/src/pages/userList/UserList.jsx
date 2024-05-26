@@ -21,7 +21,7 @@ const UserList = () => {
     const columns = [
         { field: '_id', headerName: 'ID', width: 100 },
         {
-            field: 'username', headerName: 'Username', width: 250, renderCell: (params) => {
+            field: 'username', headerName: 'Username', width: 150, renderCell: (params) => {
                 return (
                     <div className='userListUser'>
                         <img src={params.row.img} alt='' className='userListImage' />
