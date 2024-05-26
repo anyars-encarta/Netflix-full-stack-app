@@ -43,12 +43,12 @@ const Navbar = () => {
                         </span>
                     </Link>
                     <Link to="/series" className='link'>
-                        <span>
+                        <span className='offRespon'>
                             Series
                         </span>
                     </Link>
                     <Link to="/movies" className='link'>
-                        <span>
+                        <span className='offRespon'>
                             Movies
                         </span>
                     </Link>
