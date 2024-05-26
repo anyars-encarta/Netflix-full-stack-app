@@ -5,7 +5,7 @@ export const login = async (user, dispatch) => {
     dispatch(loginStart());
 
     try {
-        const res = await axios.post('auth/login', user);
+        const res = await axios.post("http://localhost:8800/api/auth/login", user);
         dispatch(loginSuccess(res.data));
         // Refresh page after login
         window.location.reload();
