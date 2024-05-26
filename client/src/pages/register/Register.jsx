@@ -53,7 +53,7 @@ const Register = () => {
                             {password === '' ? (
                                 'Start'
                             ) : (
-                                <Link to="/home" className='link'>
+                                <Link to="/" className='link'>
                                     Start
                                 </Link>
                             )}
