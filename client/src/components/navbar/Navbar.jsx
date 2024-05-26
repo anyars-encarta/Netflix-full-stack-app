@@ -9,11 +9,13 @@ import './navbar.scss';
 import { AuthContext } from '../../context/authContext/AuthContext';
 import { logout } from '../../context/authContext/AuthActions';
 
+const user = JSON.parse(localStorage.getItem("user"));
+console.log("From App.js: ", user)
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const { dispatch } = useContext(AuthContext);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     window.onscroll = () => {
         setScrolled(window.scrollY === 0 ? false : true)
@@ -32,7 +34,7 @@ const Navbar = () => {
             <div className="container">
                 <div className="left">
                     <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
+                        src={"https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"}
                         alt=""
                     />
                     <Link to="/" className='link'>
@@ -62,7 +64,7 @@ const Navbar = () => {
                     <Search className='icon' />
                     <span>KID</span>
                     <Notifications className='icon' />
-                    <img src="/images/profile.jpg" alt="" />
+                    <img src={user.img || "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg"} alt="" />
 
                     <div className="profile">
                         <ArrowDropDown className='icon' />
