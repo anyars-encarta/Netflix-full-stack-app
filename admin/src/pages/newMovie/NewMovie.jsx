@@ -13,6 +13,8 @@ const NewMovie = () => {
     const [trailer, setTrailer] = useState(null);
     const [video, setVideo] = useState(null);
     const [uploaded, setUploaded] = useState(0);
+    const [uploadProgress, setUploadProgress] = useState('');
+    const [loading, setLoading] = useState(false);
     const { dispatch } = useContext(MovieContext);
 
     const handleChange = (e) => {
@@ -30,7 +32,8 @@ const NewMovie = () => {
                 "state_changed",
                 (snapshot) => {
                     const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-                    console.log("Upload is " + progress + "% complete...");
+                    // console.log("Upload is " + progress + "% complete...");
+                    setUploadProgress(progress)
                 },
                 (err) => {
                     console.error(err)
@@ -61,8 +64,12 @@ const NewMovie = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        
+        setLoading(true);
 
         createMovie(movie, dispatch);
+
+        setLoading(false);
     };
 
     return (
@@ -134,9 +141,13 @@ const NewMovie = () => {
                 </div>
 
                 {uploaded === 5 ? (
-                    <button className="addProductButton" type="submit" onClick={handleSubmit}>Create</button>
+                    <button className="addProductButton" type="submit" onClick={handleSubmit}>
+                        {loading ? 'Creating Movie...' : 'Create'}
+                    </button>
                 ) : (
-                    <button className="addProductButton" onClick={handleUpload}>Upload</button>
+                    <button className="addProductButton" onClick={handleUpload}>
+                        {(uploadProgress !== '' && uploadProgress < 100) ? 'Uploading files...' : 'Upload'}
+                    </button>
                 )}
             </form>
         </div>

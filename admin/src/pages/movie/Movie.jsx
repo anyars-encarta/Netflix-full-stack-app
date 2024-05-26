@@ -16,10 +16,7 @@ const Movie = () => {
     const movieId = pathname.split('/').pop();
     const [movie, setMovie] = useState(location.state?.movie || null);
 
-    // const [movie, setMovie] = useState({});
-    // const [img, setImg] = useState(null);
     const [imgTitle, setImgTitle] = useState(null);
-    // const [imgSm, setImgSm] = useState(null);
     const [trailer, setTrailer] = useState(null);
     const [video, setVideo] = useState(null);
     const [uploaded, setUploaded] = useState(0);
@@ -83,9 +80,7 @@ const Movie = () => {
         e.preventDefault();
 
         const items = [
-            // { file: img, label: "img" },
             { file: imgTitle, label: "imgTitle" },
-            // { file: imgSm, label: "imgSm" },
             { file: trailer, label: "trailer" },
             { file: video, label: "video" },
         ];
@@ -97,11 +92,6 @@ const Movie = () => {
 
         handleUpload(e);
         updateMovie(movie._id, movie, dispatch);
-        // if (uploaded === 3) {
-        //     updateMovie(movie._id, movie, dispatch);
-        // } else {
-        //     handleUpload(e);
-        // }
     };
 //UPDATE ENDS HERE
 

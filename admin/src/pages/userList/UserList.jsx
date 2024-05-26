@@ -1,53 +1,58 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { userRows } from '../../constants/userTable';
 import { DeleteOutline } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-
 import './userList.scss';
+import { UserContext } from '../../context/userContext/UserContext';
+import { deleteUser, getUsers } from '../../context/userContext/apiCalls';
 
 const UserList = () => {
+    const { users, dispatch } = useContext(UserContext);
 
-    const [data, setData] = useState(userRows);
+    useEffect(() => {
+        getUsers(dispatch);
+    }, [dispatch]);
 
     const handleDelete = (id) => {
-       setData(data.filter((item) => item.id !== id))
+        deleteUser(id, dispatch)
     };
 
-const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    {
-        field: 'user', headerName: 'Username', width: 200, renderCell: (params) => {
-            return (
-                <div className='userListUser'>
-                    <img src={params.row.avatar} alt='' className='userListImage' />
-                    {params.row.username}
-                </div>
-            )
-        }
-    },
-    { field: 'email', headerName: 'Email', width: 200 },
-    { field: 'status', headerName: 'Status', width: 120 },
-    { field: 'transaction', headerName: 'Transaction Volume', width: 160 },
-    {
-        field: 'action', headerName: 'Action', width: 150, renderCell: (params) => {
-            return (
-                <>
-                    <Link to={"/user/" + params.row.id} className='link'>
-                        <button className="userListEdit">Edit</button>
-                    </Link>
+    const columns = [
+        { field: '_id', headerName: 'ID', width: 100 },
+        {
+            field: 'username', headerName: 'Username', width: 150, renderCell: (params) => {
+                return (
+                    <div className='userListUser'>
+                        <img src={params.row.img} alt='' className='userListImage' />
+                        {params.row.username}
+                    </div>
+                )
+            }
+        },
+        { field: 'fullname', headerName: 'Full Name', width: 200 },
+        { field: 'email', headerName: 'Email', width: 250 },
+        { field: 'isAdmin', headerName: 'IsAdmin', width: 120 },
+        { field: 'isActive', headerName: 'IsActive', width: 120 },
+        {
+            field: 'action', headerName: 'Action', width: 150, renderCell: (params) => {
+                return (
+                    <>
+                        <Link to={{ pathname: "/user/" + params.row._id, state: { user: params.row } }} className='link'>
+                            <button className="userListEdit">Edit</button>
+                        </Link>
 
-                    <DeleteOutline className="userListDelete" onClick={() => handleDelete(params.row.id)} />
-                </>
-            )
-        }
-    },
-];
+                        <DeleteOutline className="userListDelete" onClick={() => handleDelete(params.row._id)} />
+                    </>
+                )
+            }
+        },
+    ];
 
     return (
         <div className='userList'>
             <DataGrid
-                rows={data}
+                rows={users}
                 columns={columns}
                 disableRowSelectionOnClick
                 initialState={{
@@ -57,6 +62,7 @@ const columns = [
                 }}
                 pageSizeOptions={[5, 10]}
                 checkboxSelection
+                getRowId={(r) => r._id}
             />
         </div>
     )

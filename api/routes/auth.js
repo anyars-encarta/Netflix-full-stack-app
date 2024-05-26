@@ -6,8 +6,14 @@ const User = require("../models/User.js");
 //REGSITER
 router.post("/register", async (req, res) => {
     const newUser = new User({
+        fullname: req.body.fullname,
         username: req.body.username,
         email: req.body.email,
+        contact: req.body.contact,
+        address: req.body.address,
+        gender: req.body.gender,
+        isActive: req.body.isActive,
+        isAdmin: req.body.isAdmin,
         // password: req.body.password,
         // Encrypt Password
         password: CryptoJS.AES.encrypt(
@@ -22,7 +28,6 @@ router.post("/register", async (req, res) => {
         res.status(500).json(e)
     }
 });
-
 
 // LOGIN
 router.post("/login", async (req, res) => {

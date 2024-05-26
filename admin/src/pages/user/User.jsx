@@ -1,10 +1,107 @@
-import React from 'react';
-import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish } from '@mui/icons-material';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import {
+  CalendarToday,
+  LocationSearching,
+  MailOutline,
+  PermIdentity,
+  PhoneAndroid,
+  Publish
+} from '@mui/icons-material';
 
 import './user.scss';
-import { Link } from 'react-router-dom';
+import { UserContext } from '../../context/userContext/UserContext';
+import axios from 'axios';
+import { updateUser } from '../../context/userContext/apiCalls';
+
 
 const SingleUser = () => {
+  const location = useLocation();
+  const pathname = location.pathname;
+  const userId = pathname.split('/').pop();
+  const [user, setUser] = useState(location.state?.user || null);
+
+
+  const [img, setImg] = useState(null);
+  const [uploaded, setUploaded] = useState(0);
+  const { dispatch } = useContext(UserContext);
+
+  const fetchUserById = async (movieId) => {
+    try {
+      const res = await axios.get(`http://localhost:8800/api/users/find/${userId}`, {
+        headers: {
+          token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+        }
+      });
+
+      return res.data;
+
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    if (!user) {
+      fetchUserById(userId).then(fetchedUser => setUser(fetchedUser));
+    }
+  }, [userId, user]);
+
+  const createdAtDate = new Date(user?.createdAt);
+  const formattedDate = createdAtDate.toLocaleDateString();
+
+  const handleChange = (e) => {
+    const value = e.target.value
+    setUser({ ...user, [e.target.name]: value });
+  };
+
+  const upload = (users) => {
+    users.forEach((user) => {
+      const fileName = user.file.name;
+      const storageRef = ref(storage, `/items/${fileName}`);
+      const uploadTask = uploadBytesResumable(storageRef, user.file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          console.log("Upload is " + progress + "% complete...");
+        },
+        (err) => {
+          console.error(err)
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            setMovie((prev) => {
+              return { ...prev, [user.label]: url };
+            });
+            setUploaded((prev) => prev + 1);
+          });
+        }
+      );
+    });
+  };
+
+  const handleUpload = (e) => {
+    e.preventDefault();
+
+    const users = [
+      { file: img, label: "img" },
+    ];
+    upload(users);
+  };
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+
+    handleUpload(e);
+    updateUser(user._id, user, dispatch);
+  };
+
+  if (!user) {
+    return <div />;
+  }
+
   return (
     <div className='user'>
       <div className="userTitleContainer">
@@ -21,7 +118,7 @@ const SingleUser = () => {
             <img src="/images/profile.jpg" alt="" className="userShowImg" />
 
             <div className="userShowTopTitle">
-              <span className="userShowUsername">John Doe</span>
+              <span className="userShowUsername">{user?.username}</span>
               <span className="userShowTitle">Full-stack Developer</span>
             </div>
           </div>
@@ -31,28 +128,38 @@ const SingleUser = () => {
 
             <div className="userShowInfo">
               <PermIdentity className='userShowIcon' />
-              <span className="userShowInfoTitle">johndoe</span>
+              <span className="userShowInfoTitle">{user?.username}</span>
             </div>
 
             <div className="userShowInfo">
               <CalendarToday className='userShowIcon' />
-              <span className="userShowInfoTitle">10.12.1999</span>
+              <span className="userShowInfoTitle">{formattedDate}</span>
             </div>
 
             <span className="userShowTitle">Contact Details</span>
             <div className="userShowInfo">
               <PhoneAndroid className='userShowIcon' />
-              <span className="userShowInfoTitle">+233 24 211 9972</span>
+              <span className="userShowInfoTitle">{user?.contact}</span>
             </div>
 
             <div className="userShowInfo">
               <MailOutline className='userShowIcon' />
-              <span className="userShowInfoTitle">johndoe@gmail.com</span>
+              <span className="userShowInfoTitle">{user?.email}</span>
             </div>
 
             <div className="userShowInfo">
               <LocationSearching className='userShowIcon' />
-              <span className="userShowInfoTitle">Kumasi | Ghana</span>
+              <span className="userShowInfoTitle">{user?.address}</span>
+            </div>
+
+            <div className="userShowInfo">
+              <span className='userShowIcon status'>Admin Status:</span>
+              <span className="userShowInfoTitle">{user?.isAdmin === true ? 'Yes' : 'No'}</span>
+            </div>
+
+            <div className="userShowInfo">
+              <span className='userShowIcon status'>Active Status:</span>
+              <span className="userShowInfoTitle">{user?.isActive === true ? 'Yes' : 'No'}</span>
             </div>
           </div>
         </div>
@@ -68,7 +175,10 @@ const SingleUser = () => {
                   id='username'
                   type="text"
                   placeholder='encarta'
-                  className='userUpdateInput' />
+                  className='userUpdateInput'
+                  value={user?.username}
+                  onChange={handleChange || ''}
+                />
               </div>
 
               <div className="userUpdateItem">
@@ -77,7 +187,10 @@ const SingleUser = () => {
                   id='fullname'
                   type="text"
                   placeholder='John Doe'
-                  className='userUpdateInput' />
+                  className='userUpdateInput'
+                  value={user?.fullname}
+                  onChange={handleChange || ''}
+                />
               </div>
 
               <div className="userUpdateItem">
@@ -86,7 +199,15 @@ const SingleUser = () => {
                   id='email'
                   type="email"
                   placeholder='johndoe@gmail.com'
-                  className='userUpdateInput' />
+                  className='userUpdateInput'
+                  value={user?.email || ''}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="userUpdateItem">
+                <label htmlFor="password">Password</label>
+                <input id='password' type="password" placeholder='Password' name="password" onChange={handleChange} />
               </div>
 
               <div className="userUpdateItem">
@@ -95,7 +216,10 @@ const SingleUser = () => {
                   id='phone'
                   type="text"
                   placeholder='+233 24 211 9972'
-                  className='userUpdateInput' />
+                  className='userUpdateInput'
+                  value={user?.contact || ''}
+                  onChange={handleChange}
+                />
               </div>
 
               <div className="userUpdateItem">
@@ -104,7 +228,25 @@ const SingleUser = () => {
                   id='address'
                   type="text"
                   placeholder='Kumasi | Ghana'
-                  className='userUpdateInput' />
+                  className='userUpdateInput'
+                  value={user?.address || ''}
+                  onChange={handleChange} />
+              </div>
+
+              <div className="userUpdateItem">
+                <label htmlFor="active">Active</label>
+                <select className='newUserSelect' name="isActive" id="active" value={user?.isActive} onChange={handleChange}>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+
+              <div className="userUpdateItem">
+                <label htmlFor="admin">Admin</label>
+                <select className='newUserSelect' name="isAdmin" id="admin" value={user?.isAdmin} onChange={handleChange}>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
               </div>
             </div>
 
@@ -115,7 +257,7 @@ const SingleUser = () => {
                 <input id='file' type="file" style={{ display: 'none' }} />
               </div>
 
-              <button className="userUpdateButton">Update</button>
+              <button className="userUpdateButton" onClick={() => handleUpdate}>Update</button>
             </div>
           </form>
         </div>
