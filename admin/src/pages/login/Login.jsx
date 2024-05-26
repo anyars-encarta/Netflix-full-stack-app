@@ -16,24 +16,25 @@ const Login = () => {
     e.preventDefault();
 
     login({ email, password }, dispatch);
-    window.location.reload();
   };
 
   return (
     <div className='login'>
-      <form className="loginForm">
-        <input type="email" placeholder='Email' className="loginInput" onChange={(e) => setEmail(e.target.value)} />
-        <input type="password" placeholder='Password' className="loginInput" onChange={(e) => setPassword(e.target.value)} />
-        <button className='loginButton' onClick={handleLogin} disabled={isFetching}>
-          {isFetching ? 'Logging in...' : 'Login'}
-        </button>
-      </form>
-
       {!user ? (
-        <span className='noAccount'>
-          Dont have an account? &nbsp;
-          <Link to='/newUser'>Register</Link>
-        </span>
+        <>
+          <form className="loginForm">
+            <input type="email" placeholder='Email' className="loginInput" onChange={(e) => setEmail(e.target.value)} />
+            <input type="password" placeholder='Password' className="loginInput" onChange={(e) => setPassword(e.target.value)} />
+            <button className='loginButton' onClick={handleLogin} disabled={isFetching}>
+              {isFetching ? 'Logging in...' : 'Login'}
+            </button>
+          </form>
+
+          <span className='noAccount'>
+            Dont have an account? &nbsp;
+            <Link to='/newUser'>Register</Link>
+          </span>
+        </>
       ) : (
         <span className='noAccount'>
           Login successful. Go to &nbsp;

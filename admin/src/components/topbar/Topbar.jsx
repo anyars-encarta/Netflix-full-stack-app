@@ -13,11 +13,11 @@ import { Link, useNavigate } from 'react-router-dom';
 const Topbar = () => {
     const { user, dispatch } = useContext(AuthContext);
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const handleLogout = () => {
         dispatch(logout());
-        navigate('/login');
+        // navigate('/login');
     };
 
     return (
