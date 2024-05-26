@@ -46,23 +46,23 @@ export const createUser = async (user, dispatch) => {
     }
 };
 
-// // Update a Movie
-// export const updateMovie = async (id, movie, dispatch) => {
-//     dispatch(updateMovieStart());
+// Update a User
+export const updateUser = async (id, user, dispatch) => {
+    dispatch(updateUserStart());
 
-//     try {
-//         const res = await axios.put(`/movies/${id}`, movie, {
-//             headers: {
-//                 token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
-//             },
-//         });
+    try {
+        const res = await axios.put(`/users/${id}`, user, {
+            headers: {
+                token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+            },
+        });
 
-//         dispatch(updateMovieSuccess(res.data));
+        dispatch(updateUserSuccess(res.data));
 
-//     } catch (e) {
-//         dispatch(updateMovieFailure());
-//     }
-// };
+    } catch (e) {
+        dispatch(updateUserFailure());
+    }
+};
 
 // Delete a User
 export const deleteUser = async (id, dispatch) => {

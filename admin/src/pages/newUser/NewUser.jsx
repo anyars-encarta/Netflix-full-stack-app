@@ -23,11 +23,11 @@ const NewUser = () => {
         setUser({ ...user, [e.target.name]: value });
     };
 
-    const upload = (items) => {
-        items.forEach((item) => {
-            const fileName = new Date().getTime() + item.label + item.file?.name;
+    const upload = (users) => {
+        users.forEach((user) => {
+            const fileName = new Date().getTime() + user.label + user.file?.name;
             const storageRef = ref(storage, `/users/${fileName}`);
-            const uploadTask = uploadBytesResumable(storageRef, item.file);
+            const uploadTask = uploadBytesResumable(storageRef, user.file);
 
             uploadTask.on(
                 "state_changed",
@@ -42,7 +42,7 @@ const NewUser = () => {
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then((url) => {
                         setUser((prev) => {
-                            return { ...prev, [item.label]: url };
+                            return { ...prev, [user.label]: url };
                         });
                         setUploaded((prev) => prev + 1);
                     });
