@@ -17,7 +17,8 @@ import NewList from "./pages/newList/NewList";
 import ProtectedRoute from "./components/protectedRoute/protectedRoute";
 
 const App = () => {
-  const user = localStorage.getItem('user');
+  const storedUser = localStorage.getItem('user');
+  const user = storedUser ? JSON.parse(storedUser) : null;
 
   return (
     <Router>
@@ -30,8 +31,7 @@ const App = () => {
           </>
         ) : (
           <Route path='/login' element={<Login />} />
-        )
-        }
+        )}
 
         {/* Protected routes */}
         <Route

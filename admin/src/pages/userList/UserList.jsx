@@ -24,7 +24,7 @@ const UserList = () => {
             field: 'username', headerName: 'Username', width: 250, renderCell: (params) => {
                 return (
                     <div className='userListUser'>
-                        <img src={params.row.profilePicture} alt='' className='userListImage' />
+                        <img src={params.row.img} alt='' className='userListImage' />
                         {params.row.username}
                     </div>
                 )
