@@ -15,7 +15,7 @@ const Watch = () => {
     try {
       const res = await axios.get("/movies/find/" + movieId, {
         headers: {
-          token: `Bearer ${process.env.REACT_APP_ACCESS_TOKEN}`
+          token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
         },
       });
 

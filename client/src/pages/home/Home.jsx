@@ -14,7 +14,7 @@ const Home = ({ type }) => {
       const res = await axios.get(
         `lists${type ? "?type=" + type : ''}${genre ? "&genre=" + genre : ''}`, {
         headers: {
-          token: `Bearer ${process.env.REACT_APP_ACCESS_TOKEN}`
+          token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
         }
       }
       )

@@ -5,9 +5,11 @@ import Register from './pages/register/Register';
 import Home from './pages/home/Home';
 import Watch from './pages/watch/Watch';
 import List from "./components/list/List";
+import { useContext } from "react";
+import { AuthContext } from "./context/authContext/AuthContext";
 
 const App = () => {
-  const user = true;
+  const { user } = useContext(AuthContext);
 
   return (
     <Router>
@@ -17,13 +19,13 @@ const App = () => {
           <Route path='/register' element={!user ? <Register /> : <Home />} />
           <Route path='/login' element={!user ? <Login /> : <Register />} />
 
-          { user &&
-          <>
-            <Route path='/movies' element={<Home type='movie' />} />
-            <Route path='/series' element={<Home type='series' />} />
-            <Route path='/watch' element={<Watch />} />
-            <Route path='/lists' element={<List />} />
-          </>
+          {user &&
+            <>
+              <Route path='/movies' element={<Home type='movie' />} />
+              <Route path='/series' element={<Home type='series' />} />
+              <Route path='/watch' element={<Watch />} />
+              <Route path='/lists' element={<List />} />
+            </>
           }
         </Routes>
       </div>

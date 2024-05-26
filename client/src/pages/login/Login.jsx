@@ -1,11 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import './login.scss';
+import { login } from '../../context/authContext/apiCalls';
+import { AuthContext } from '../../context/authContext/AuthContext';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const { dispatch } = useContext(AuthContext);
 
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -15,10 +18,10 @@ const Login = () => {
 
         setEmail(emailRef.current.value)
         setPassword(passwordRef.current.value)
-        
-        if (email !== '' && password !== '') {
-            navigate('/')
-        }
+
+        login({ email, password }, dispatch);
+
+        navigate('/')
     };
 
     return (
@@ -35,8 +38,8 @@ const Login = () => {
                 <div className="container">
                     <form>
                         <h1>Sign In</h1>
-                        <input type="email" placeholder='Email or Phone number' ref={emailRef} />
-                        <input type="password" placeholder='Password' ref={passwordRef} />
+                        <input type="email" placeholder='Email or Phone number' ref={emailRef} onChange={(e) => setEmail(e.target.value)} />
+                        <input type="password" placeholder='Password' ref={passwordRef} onChange={(e) => setPassword(e.target.value)} />
                         <button className="loginButton" onClick={handleSignIn}>Sign In</button>
                         <span>
                             New to Netflix?
