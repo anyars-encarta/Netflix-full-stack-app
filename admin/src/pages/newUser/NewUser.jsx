@@ -154,11 +154,11 @@ const NewUser = () => {
                 <div className='newUserInputButton'>
                     {uploaded === 1 ? (
                         <button className="newUserButton" onClick={handleSubmit}>
-                            {loading ? 'Creating User' : 'Create'}
+                            {loading ? 'Creating User...' : 'Create'}
                         </button>
                     ) : (
                         <button className="newUserButton" onClick={handleUpload}>
-                            {(uploadProgress !== '' && uploadProgress < 100) ? 'Uploading Image' : 'Upload'}
+                            {(uploadProgress !== '' && uploadProgress < 100) ? 'Uploading Image...' : 'Upload'}
                         </button>
                     )}
                 </div>
