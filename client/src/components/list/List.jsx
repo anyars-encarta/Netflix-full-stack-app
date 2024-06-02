@@ -6,8 +6,10 @@ import { useRef, useState } from 'react'
 const List = ({ list }) => {
   const [moved, setMoved] = useState(false);
   const [slideNumber, setSlideNumber] = useState(0);
-  const [clickLimit, setClickLimit] = useState(window.innerWidth / 230);
+  const [clickLimit, setClickLimit] = useState('');
 
+  setClickLimit(window.innerWidth / 230);
+  
   const listRef = useRef();
 
   const handleClick = (direction) => {
