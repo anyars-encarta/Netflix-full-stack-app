@@ -6,9 +6,7 @@ import { useRef, useState } from 'react'
 const List = ({ list }) => {
   const [moved, setMoved] = useState(false);
   const [slideNumber, setSlideNumber] = useState(0);
-  const [clickLimit, setClickLimit] = useState('');
-
-  setClickLimit(window.innerWidth / 230);
+  const [clickLimit, setClickLimit] = useState(window.innerWidth / 230);
   
   const listRef = useRef();
 
@@ -38,7 +36,7 @@ const List = ({ list }) => {
 
         <div className="container" ref={listRef}>
           {list?.content?.map((item, i) => (
-            <ListItem index={i} item={item} />
+            <ListItem index={i} item={item} key={i}/>
           ))}
         </div>
 
