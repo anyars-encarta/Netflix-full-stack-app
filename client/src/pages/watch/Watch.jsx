@@ -1,33 +1,9 @@
-// Watch.jsx
+import React from 'react'
 import { ArrowBackOutlined } from '@mui/icons-material';
-import { Link, useLocation } from 'react-router-dom';
-import './watch.scss';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Watch = () => {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const movieId = searchParams.get('movieId');
-  const [movie, setMovie] = useState({});
-
-  const getMovie = async () => {
-    try {
-      const res = await axios.get("/movies/find/" + movieId, {
-        headers: {
-          token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
-        },
-      });
-
-      setMovie(res.data);
-    } catch (e) {
-      console.log(e)
-    }
-  };
-
-  useEffect(() => {
-    getMovie();
-  }, [movieId]);
+  const movie = '/images/The Matrix Resurrections_Official Trailer 1.mp4';
 
   return (
     <div className='watch'>
@@ -39,11 +15,11 @@ const Watch = () => {
       </Link>
 
       <video className="video" autoPlay progress="true" controls>
-        <source src={movie && movie.video} type="video/mp4" />
+        <source src={movie} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>
   )
 }
 
-export default Watch;
+export default Watch
